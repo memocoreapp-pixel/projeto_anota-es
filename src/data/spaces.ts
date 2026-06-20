@@ -1,0 +1,73 @@
+import {
+  Briefcase,
+  FolderKanban,
+  BookOpen,
+  StickyNote,
+  PencilLine,
+  LayoutGrid,
+} from "lucide-react";
+import type { Space } from "@/types";
+
+/** Os espaços de organização exibidos na sidebar e na página Início. */
+export const spaces: Space[] = [
+  {
+    id: "portfolios",
+    code: "00",
+    title: "Portfólios",
+    description: "Trabalhos finalizados, apresentações e entregas.",
+    itemCount: 8,
+    icon: Briefcase,
+    accent: "#7c3aed",
+    route: "/portfolios",
+  },
+  {
+    id: "projetos",
+    code: "01",
+    title: "Projetos",
+    description: "Ideias estruturadas, objetivos ativos e trabalhos em andamento.",
+    itemCount: 12,
+    icon: FolderKanban,
+    accent: "#2563eb",
+    route: "/projetos",
+  },
+  {
+    id: "cadernos",
+    code: "02",
+    title: "Cadernos",
+    description: "Conhecimento organizado por temas e áreas de estudo.",
+    itemCount: 6,
+    icon: BookOpen,
+    accent: "#0d9488",
+    route: "/cadernos",
+  },
+  {
+    id: "anotacoes",
+    code: "03",
+    title: "Anotações",
+    description: "Registros, ideias, observações e conteúdos escritos.",
+    itemCount: 24,
+    icon: StickyNote,
+    accent: "#d97706",
+    route: "/anotacoes",
+  },
+  {
+    id: "rascunhos",
+    code: "04",
+    title: "Rascunhos",
+    description: "Conteúdos incompletos, temporários ou em construção.",
+    itemCount: 5,
+    icon: PencilLine,
+    accent: "#db2777",
+    route: "/rascunhos",
+  },
+  {
+    id: "cards",
+    code: "05",
+    title: "Cards",
+    description: "Blocos curtos, resumos, insights e unidades rápidas de informação.",
+    itemCount: 17,
+    icon: LayoutGrid,
+    accent: "#4f46e5",
+    route: "/cards",
+  },
+];
