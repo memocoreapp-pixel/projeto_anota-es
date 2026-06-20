@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+# Publica o app Vite no GitHub Pages usando apenas o GITHUB_TOKEN padrao.
+# Nao requer nenhum segredo externo (sem VERCEL_TOKEN, sem painel manual).
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Permissoes minimas necessarias para o deploy oficial de Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Garante um unico deploy por vez.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: SPA fallback (404 -> index.html)
+        run: cp dist/index.html dist/404.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          # Tenta habilitar o Pages automaticamente via API usando o GITHUB_TOKEN.
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
