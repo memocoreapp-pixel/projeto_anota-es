@@ -9,9 +9,10 @@ interface SpaceCoverProps {
 }
 
 /**
- * Capa de um espaço. A cor vem sempre de um token de tema (colorTheme),
- * nunca hardcodada — permitindo troca futura (branco, roxo, goiaba, etc.).
- * O motivo SVG ocupa a área superior; o rótulo (título + contagem) fica na base.
+ * Capa de um espaço. A composição (objeto: caderno/fichário/página/deck)
+ * preenche todo o quadro. A cor vem sempre de um token de tema (colorTheme),
+ * nunca hardcodada. Um esmaecido na base funde a composição no fundo para o
+ * rótulo (título + contagem) ficar sempre legível.
  */
 export function SpaceCover({ space, className }: SpaceCoverProps) {
   const theme = getCoverTheme(space.colorTheme);
@@ -20,20 +21,26 @@ export function SpaceCover({ space, className }: SpaceCoverProps) {
   return (
     <div
       className={cn(
-        "relative flex aspect-[3/4] flex-col overflow-hidden rounded-xl ring-1 ring-inset ring-black/5 transition-shadow",
+        "relative aspect-[3/4] overflow-hidden rounded-xl ring-1 ring-inset ring-black/5 transition-shadow",
         className
       )}
       style={{ backgroundColor: theme.base }}
     >
-      {/* Motivo (área superior) */}
-      <div className="relative flex-1">
-        <div className="absolute inset-0 flex items-center justify-center p-3">
-          <Motif theme={theme} />
-        </div>
+      {/* Composição da capa (preenche o quadro) */}
+      <div className="absolute inset-0">
+        <Motif theme={theme} />
       </div>
 
-      {/* Rótulo (base) */}
-      <div className="relative px-3 pb-3 pt-1">
+      {/* Esmaecido na base para legibilidade do rótulo */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5"
+        style={{
+          background: `linear-gradient(to top, ${theme.base} 32%, transparent)`,
+        }}
+      />
+
+      {/* Rótulo integrado na base da capa */}
+      <div className="absolute inset-x-0 bottom-0 px-3 pb-3">
         <p
           className="truncate text-sm font-semibold"
           style={{ color: theme.onCover }}
