@@ -64,9 +64,6 @@ export function Sidebar() {
                   )
                 }
               >
-                <span className="w-6 text-xs font-medium text-slate-400">
-                  {space.code}
-                </span>
                 <Icon className="h-4 w-4" aria-hidden="true" />
                 <span className="flex-1">{space.title}</span>
                 <span className="text-xs text-slate-400">{space.itemCount}</span>
