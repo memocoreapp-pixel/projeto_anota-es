@@ -24,52 +24,58 @@ export function SpaceCard({ space }: SpaceCardProps) {
           navigate(space.route);
         }
       }}
-      className="group relative flex h-full cursor-pointer flex-col overflow-hidden p-5"
+      className="group relative flex h-full cursor-pointer flex-col overflow-hidden"
     >
-      {/* Fundo levemente colorido por categoria, bem discreto */}
+      {/* Capa sutil: gradiente discreto + watermark do ícone da categoria */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-24"
+        className="relative h-20 overflow-hidden border-b border-slate-100"
         style={{
-          background: `linear-gradient(to bottom, ${space.accent}0f, transparent)`,
+          background: `linear-gradient(135deg, ${space.accent}16 0%, ${space.accent}05 60%, transparent 100%)`,
         }}
-      />
+      >
+        <Icon
+          aria-hidden="true"
+          strokeWidth={1.25}
+          className="pointer-events-none absolute -right-3 -top-4 h-28 w-28"
+          style={{ color: space.accent, opacity: 0.1 }}
+        />
 
-      <div className="relative flex items-start justify-between">
-        <span
-          className="flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{
-            backgroundColor: `${space.accent}1f`,
-            color: space.accent,
-            boxShadow: `inset 0 0 0 1px ${space.accent}29`,
-          }}
-        >
-          <Icon className="h-5 w-5" aria-hidden="true" />
-        </span>
-        <span className="text-xs font-semibold tracking-wide text-slate-300 transition-colors group-hover:text-brand-400">
-          {space.code}
-        </span>
+        <div className="relative flex items-start justify-between p-4">
+          <span
+            className="flex h-11 w-11 items-center justify-center rounded-xl bg-white"
+            style={{
+              color: space.accent,
+              boxShadow: `inset 0 0 0 1px ${space.accent}29, 0 1px 2px rgba(16,24,40,0.06)`,
+            }}
+          >
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="text-xs font-semibold tracking-wide text-slate-300 transition-colors group-hover:text-brand-400">
+            {space.code}
+          </span>
+        </div>
       </div>
 
-      <h3 className="relative mt-4 text-base font-semibold text-slate-900">
-        {space.title}
-      </h3>
+      {/* Conteúdo */}
+      <div className="flex flex-1 flex-col p-5 pt-4">
+        <h3 className="text-base font-semibold text-slate-900">{space.title}</h3>
 
-      <p className="relative mt-1 line-clamp-2 text-sm leading-relaxed text-slate-500">
-        {space.description}
-      </p>
+        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-slate-500">
+          {space.description}
+        </p>
 
-      <div className="relative mt-auto flex items-center justify-between pt-4">
-        <span
-          className="rounded-full px-2.5 py-0.5 text-xs font-semibold"
-          style={{ backgroundColor: `${space.accent}14`, color: space.accent }}
-        >
-          {space.itemCount} itens
-        </span>
-        <ArrowUpRight
-          className="h-4 w-4 text-slate-300 transition-colors group-hover:text-brand-500"
-          aria-hidden="true"
-        />
+        <div className="mt-auto flex items-center justify-between pt-4">
+          <span
+            className="rounded-full px-2.5 py-0.5 text-xs font-semibold"
+            style={{ backgroundColor: `${space.accent}14`, color: space.accent }}
+          >
+            {space.itemCount} itens
+          </span>
+          <ArrowUpRight
+            className="h-4 w-4 text-slate-300 transition-colors group-hover:text-brand-500"
+            aria-hidden="true"
+          />
+        </div>
       </div>
     </Card>
   );
