@@ -2,10 +2,13 @@ name: Deploy to GitHub Pages
 
 # Publica o app Vite no GitHub Pages usando apenas o GITHUB_TOKEN padrao.
 # Nao requer nenhum segredo externo (sem VERCEL_TOKEN, sem painel manual).
+# Dispara no branch padrao do repo e no main. O environment "github-pages"
+# so aceita deploy do branch padrao, por isso ambos sao cobertos.
 on:
   push:
     branches:
       - main
+      - chore/initial-steering-files
   workflow_dispatch:
 
 # Permissoes minimas necessarias para o deploy oficial de Pages.
