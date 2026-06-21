@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Home } from "@/pages/Home";
 import { SpacePlaceholder } from "@/pages/SpacePlaceholder";
+import { CoverLabPage } from "@/components/spaces/cover-lab/CoverLabPage";
 
 // Sob GitHub Pages o app roda em um subcaminho (ex.: /projeto_anota-es/).
 // O basename usa o BASE_URL definido pelo Vite, sem a barra final.
@@ -20,6 +21,7 @@ export const router = createBrowserRouter(
         { path: "anotacoes", element: <SpacePlaceholder spaceId="anotacoes" /> },
         { path: "rascunhos", element: <SpacePlaceholder spaceId="rascunhos" /> },
         { path: "cards", element: <SpacePlaceholder spaceId="cards" /> },
+        { path: "cover-lab", element: <CoverLabPage /> },
       ],
     },
   ],
