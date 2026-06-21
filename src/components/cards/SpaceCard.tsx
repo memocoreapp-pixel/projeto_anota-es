@@ -24,12 +24,25 @@ export function SpaceCard({ space }: SpaceCardProps) {
           navigate(space.route);
         }
       }}
-      className="group flex h-full cursor-pointer flex-col p-5"
+      className="group relative flex h-full cursor-pointer flex-col overflow-hidden p-5"
     >
-      <div className="flex items-start justify-between">
+      {/* Fundo levemente colorido por categoria, bem discreto */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24"
+        style={{
+          background: `linear-gradient(to bottom, ${space.accent}0f, transparent)`,
+        }}
+      />
+
+      <div className="relative flex items-start justify-between">
         <span
           className="flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{ backgroundColor: `${space.accent}14`, color: space.accent }}
+          style={{
+            backgroundColor: `${space.accent}1f`,
+            color: space.accent,
+            boxShadow: `inset 0 0 0 1px ${space.accent}29`,
+          }}
         >
           <Icon className="h-5 w-5" aria-hidden="true" />
         </span>
@@ -38,16 +51,19 @@ export function SpaceCard({ space }: SpaceCardProps) {
         </span>
       </div>
 
-      <h3 className="mt-4 text-base font-semibold text-slate-900">
+      <h3 className="relative mt-4 text-base font-semibold text-slate-900">
         {space.title}
       </h3>
 
-      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-slate-500">
+      <p className="relative mt-1 line-clamp-2 text-sm leading-relaxed text-slate-500">
         {space.description}
       </p>
 
-      <div className="mt-auto flex items-center justify-between pt-4">
-        <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
+      <div className="relative mt-auto flex items-center justify-between pt-4">
+        <span
+          className="rounded-full px-2.5 py-0.5 text-xs font-semibold"
+          style={{ backgroundColor: `${space.accent}14`, color: space.accent }}
+        >
           {space.itemCount} itens
         </span>
         <ArrowUpRight
