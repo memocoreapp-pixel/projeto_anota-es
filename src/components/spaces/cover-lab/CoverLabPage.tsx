@@ -3,6 +3,7 @@ import { SpaceCover } from "@/components/spaces/SpaceCover";
 import { SpaceCoverGrid } from "@/components/spaces/SpaceCoverGrid";
 import { LabCover } from "./LabCover";
 import { LabCoverB } from "./LabCoverB";
+import { LabCoverC } from "./LabCoverC";
 import { CoverPreviewGrid } from "./CoverPreviewGrid";
 import { CoverThemePreview } from "./CoverThemePreview";
 
@@ -29,30 +30,34 @@ export function CoverLabPage() {
         </p>
       </header>
 
-      {/* Comparação Atual × A × B */}
+      {/* Comparação Atual × A × B × C */}
       <section>
         <h2 className="mb-1 text-lg font-semibold text-slate-900">
-          Comparação: Atual × Experimental A × Experimental B
+          Comparação: Atual × A × B × C
         </h2>
         <p className="mb-4 text-sm text-slate-500">
-          Três versões lado a lado para decidir a direção visual.
+          Quatro versões lado a lado para decidir a direção visual.
         </p>
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           {spaces.map((space) => (
             <div key={space.id} className="rounded-xl border border-slate-200 bg-white p-4">
               <p className="mb-3 text-sm font-medium text-slate-700">{space.title}</p>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-4 gap-2">
                 <div>
                   <p className="mb-1 text-xs text-slate-400">Atual</p>
                   <SpaceCover space={space} />
                 </div>
                 <div>
-                  <p className="mb-1 text-xs text-slate-400">Experimental A</p>
+                  <p className="mb-1 text-xs text-slate-400">A</p>
                   <LabCover space={space} />
                 </div>
                 <div>
-                  <p className="mb-1 text-xs text-slate-400">Experimental B</p>
+                  <p className="mb-1 text-xs text-slate-400">B</p>
                   <LabCoverB space={space} />
+                </div>
+                <div>
+                  <p className="mb-1 text-xs text-slate-400">C</p>
+                  <LabCoverC space={space} />
                 </div>
               </div>
             </div>
@@ -60,32 +65,32 @@ export function CoverLabPage() {
         </div>
       </section>
 
-      {/* B em tamanho grande */}
+      {/* C em tamanho grande */}
       <section>
         <h2 className="mb-1 text-lg font-semibold text-slate-900">
-          Experimental B em tamanho grande
+          Experimental C em tamanho grande
         </h2>
         <p className="mb-4 text-sm text-slate-500">
-          Avalie acabamento e hierarquia da versão refinada.
+          Avalie acabamento, escala dos símbolos e coesão de família.
         </p>
         <CoverPreviewGrid
           spaces={spaces}
           className="grid grid-cols-2 gap-6 sm:grid-cols-3"
-          renderCover={(space) => <LabCoverB space={space} />}
+          renderCover={(space) => <LabCoverC space={space} />}
         />
       </section>
 
-      {/* Variações de tema (B) */}
+      {/* Variações de tema (C) */}
       <section>
         <h2 className="mb-1 text-lg font-semibold text-slate-900">
           Variações de tema de cor
         </h2>
         <p className="mb-4 text-sm text-slate-500">
-          A mesma capa B em diferentes temas (a cor vem sempre do token).
+          A mesma capa C em diferentes temas (a cor vem sempre do token).
         </p>
         <div className="space-y-8">
-          <CoverThemePreview space={cadernos} variant="B" />
-          <CoverThemePreview space={cards} variant="B" />
+          <CoverThemePreview space={cadernos} variant="C" />
+          <CoverThemePreview space={cards} variant="C" />
         </div>
       </section>
 
