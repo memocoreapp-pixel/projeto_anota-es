@@ -1,7 +1,7 @@
 import { spaces } from "@/data/spaces";
 import { recentNotes } from "@/data/notes";
 import { ContinueCard } from "@/components/cards/ContinueCard";
-import { SpaceCard } from "@/components/cards/SpaceCard";
+import { SpaceCoverGrid } from "@/components/spaces/SpaceCoverGrid";
 import { RecentNoteItem } from "@/components/cards/RecentNoteItem";
 import { Card } from "@/components/ui/Card";
 
@@ -23,11 +23,7 @@ export function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {spaces.map((space) => (
-            <SpaceCard key={space.id} space={space} />
-          ))}
-        </div>
+        <SpaceCoverGrid spaces={spaces} />
       </section>
 
       {/* Notas recentes */}
