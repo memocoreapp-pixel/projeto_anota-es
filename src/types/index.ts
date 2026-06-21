@@ -1,27 +1,7 @@
-import type { LucideIcon } from "lucide-react";
-
-/** Identificadores das áreas de organização do app. */
-export type SpaceId =
-  | "portfolios"
-  | "projetos"
-  | "cadernos"
-  | "anotacoes"
-  | "rascunhos"
-  | "cards";
-
-/** Um "espaço" representa uma área de organização (Portfólios, Projetos, etc.). */
-export interface Space {
-  id: SpaceId;
-  /** Código exibido no card, ex.: "00", "01". */
-  code: string;
-  title: string;
-  description: string;
-  itemCount: number;
-  icon: LucideIcon;
-  /** Cor de apoio discreta usada no ícone do card. */
-  accent: string;
-  route: string;
-}
+// Barrel de tipos do app.
+export * from "./spaces";
+export * from "./elements";
+export * from "./connections";
 
 /** Nível de permissão de um colaborador (mockado). */
 export type Permission =
