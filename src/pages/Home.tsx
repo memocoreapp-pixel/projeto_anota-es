@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/Card";
 /** Página Início: ponto de partida para retomar e organizar o trabalho. */
 export function Home() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-8 sm:space-y-10">
       {/* Continue de onde parou */}
       <section>
         <ContinueCard />
@@ -23,7 +23,7 @@ export function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {spaces.map((space) => (
             <SpaceCard key={space.id} space={space} />
           ))}
