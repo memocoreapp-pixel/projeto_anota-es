@@ -33,13 +33,35 @@ export function CoverLabPage() {
         </p>
       </header>
 
-      {/* PortfolioCoverFace — versão oficial em código */}
+      {/* Premium Cover Asset — Portfólios aprovado */}
       <section>
         <h2 className="mb-1 text-lg font-semibold text-slate-900">
-          PortfolioCoverFace — versão oficial em código
+          Premium Cover Asset — Portfólios aprovado
         </h2>
         <p className="mb-4 text-sm text-slate-500">
-          Componente entregue em código; capa principal (roxo) e variações de cor.
+          Fonte visual oficial por imagem (PNG/WebP). As capas aparecem aqui
+          assim que os arquivos forem enviados.
+        </p>
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className="flex aspect-[2/3] w-[200px] items-center justify-center rounded-[22px] border-2 border-dashed border-slate-300 text-center text-xs text-slate-400"
+            >
+              Aguardando imagem oficial
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PortfolioCoverFace — experimento descartado (CSS/SVG) */}
+      <section>
+        <h2 className="mb-1 text-lg font-semibold text-slate-900">
+          PortfolioCoverFace — experimento descartado (CSS/SVG)
+        </h2>
+        <p className="mb-4 text-sm text-slate-500">
+          Mantido apenas como referência histórica. Não é a versão oficial; a
+          direção atual usa assets de imagem (seção acima).
         </p>
         <div className="mb-8 flex justify-center sm:justify-start">
           <PortfolioCoverFace theme="purple" />
