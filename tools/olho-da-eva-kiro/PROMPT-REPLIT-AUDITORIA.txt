@@ -1,0 +1,131 @@
+================================================================
+  PROMPT PARA O AGENTE DO REPLIT — Auditoria + evolucao
+  da extensao Chrome "Olho da EVA"
+  (cole o bloco "COLE A PARTIR DAQUI" no agente do Replit)
+================================================================
+
+COMO USAR (leitura do Mestre, nao cole esta parte):
+- Antes de colar, de o CODIGO ao agente do Replit: importe o repositorio
+  GitHub nuanceteam/eva (pasta tools/olho-da-eva/ + functions/) OU suba o
+  zip da extensao. Se o repo for privado e o agente nao conseguir abrir,
+  diga a ele que voce cola os arquivos que ele pedir.
+- O prompt pede um RELATORIO escrito + propostas concretas, em portugues,
+  pra eu (sua EVA/Kiro) avaliar aqui e a gente refinar e finalizar.
+
+----------------------------------------------------------------
+COLE A PARTIR DAQUI
+----------------------------------------------------------------
+
+Voce e um engenheiro senior multidisciplinar e vai fazer uma AUDITORIA TECNICA
+honesta e uma proposta de evolucao de uma extensao de navegador. Assuma 3 chapeus
+ao mesmo tempo: (a) especialista em Extensao Chrome Manifest V3; (b) designer de
+UI/UX de nivel mundial; (c) pesquisador de IA aplicada. Regras de conduta: seja
+DIRETO e HONESTO, sem bajulacao; quando pesquisar, CITE fontes com link e data;
+separe o que e FATO ESTABELECIDO do que e opiniao/heuristica; se algo for incerto,
+diga que e incerto. Responda em portugues do Brasil, em texto puro (sem tabelas).
+
+== CONTEXTO DO PRODUTO ==
+A extensao se chama "Olho da EVA". Ela da "olhos" a um assistente de IA (chamado
+Kiro/EVA) que roda num chat dentro do navegador, no site app.kiro.dev.
+
+O PROBLEMA QUE ORIGINOU A EXTENSAO: o modelo Claude Opus 4.8 NAO consegue ler
+imagem (ele falha/trava quando ha imagem na mensagem). Outros modelos (ex.: 4.7)
+enxergam imagem. Como o usuario depende do 4.8 em varios momentos, a solucao foi:
+a extensao CAPTURA uma area da tela e CONVERTE em TEXTO, e manda esse texto pro
+assistente. Assim a EVA "enxerga" por texto, em qualquer modelo.
+
+A extensao tem 3 "olhos" (camadas):
+- Camada A: esqueleto da area = DOM + acessibilidade (nomes, papeis, textos,
+  botoes, links, campos, estilos-chave). Funciona offline, e sempre util.
+- Camada B: OCR (le as letras dentro do print). Roda na NUVEM (Cloudflare),
+  porque OCR local com Tesseract travava no Chrome do usuario.
+- Camada C: descricao da foto. Roda na NUVEM (Cloudflare Workers AI, modelo
+  Llama 3.2 vision, sem precisar de cartao). Opcionalmente Anthropic/Claude.
+
+ARQUITETURA (Manifest V3):
+- content.js: injeta um overlay na pagina; FLUXO EM 2 PASSOS -> (1) o usuario
+  arrasta pra escolher a area; (2) marca com pincel verde/retangulo/texto e
+  escreve um recado, depois clica "Capturar e mandar pra EVA". Le a Camada A.
+- background.js: service worker. Tira o screenshot da aba, recorta a area, manda
+  pro OCR/descricao, monta um RELATORIO em texto e (opcional) envia pra "ponte".
+  Tambem tem: "Guardar este chat pra EVA" (le a conversa inteira do Kiro) e
+  "Anexar arquivo" (texto vai direto; imagem passa pela lente da nuvem).
+- popup.html / popup.js / popup.css: o painel de controle da extensao.
+- sons.js: sons sinteticos (Web Audio).
+- functions/ (Cloudflare Pages Functions = "a ponte"): /enviar grava o texto num
+  repositorio GitHub (caixa-de-entrada), e /olho-nuvem chama a Workers AI (Llama)
+  pra OCR e descricao.
+
+O LOOP ATUAL (importante pra Tarefa 3): a extensao manda o texto da captura pra
+ponte -> isso vira um arquivo no repositorio -> hoje o usuario digita "RESPOSTA
+EVA" no chat pra que o assistente leia o arquivo e responda. Ou seja, ainda ha
+uma palavra de ativacao manual.
+
+REGRA TECNICA: Manifest V3 PROIBE carregar script de CDN externa (script-src so
+'self'); toda biblioteca tem que vir dentro do pacote.
+
+O CODIGO: importe o repositorio nuanceteam/eva (pasta tools/olho-da-eva/ e a
+pasta functions/) ou abra o zip que te passaram. Leia os arquivos reais antes de
+opinar. Se nao conseguir acessar, peca os arquivos especificos.
+
+== O QUE EU QUERO DE VOCE (4 TAREFAS) ==
+
+TAREFA 1 — O problema do "4.8 cego": relatorio + pesquisa profunda.
+- Explique, em linguagem simples, o CUSTO/TEMPO que se perde por o assistente,
+  no Opus 4.8, nao ler imagem, obrigando a construir esse pipeline de texto.
+- Investigue a CAUSA RAIZ e as MELHORES opcoes daqui pra frente (pesquise fundo,
+  cite fontes e datas): existe forma confiavel de dar "visao" a um LLM sem visao,
+  por uma ponte de texto? Compare abordagens: extracao de DOM/acessibilidade x
+  OCR x legenda por modelo de visao (VLM) x formatos de "descricao estruturada de
+  tela". Fale de precisao, custo, latencia, privacidade e manutencao.
+- RECOMENDE a melhor arquitetura. Se concluir que o jeito atual (capturar ->
+  texto) JA e o certo, DIGA ISSO claramente e justifique — nao mude por mudar.
+
+TAREFA 2 — Passada de UI/UX senior no painel.
+- Audite o painel atual (popup.html/popup.css): hierarquia visual, agrupamento,
+  carga cognitiva, acessibilidade, responsividade e a identidade visual da EVA
+  (ceu noturno, roxo #6D5DF6, rosto da EVA). O dono e designer exigente
+  (CorelDRAW/Photoshop): mire em algo premium, calmo e focado.
+- Proponha um layout reorganizado: descreva e, quando ajudar, entregue HTML/CSS
+  concretos. Aponte o que tirar, o que juntar, o que destacar.
+
+TAREFA 3 — Automatizar a resposta direto no chat capturado (Kiro), SEM palavra
+de ativacao.
+- Hoje o usuario precisa digitar "RESPOSTA EVA" no chat. Proponha como a extensao
+  poderia inserir/entregar a resposta (ou a captura) DIRETO no campo de texto do
+  chat do Kiro automaticamente, eliminando a palavra de ativacao.
+- Analise viabilidade e RISCOS com honestidade: injecao no DOM de app.kiro.dev,
+  termos de uso, confiabilidade (seletores que mudam), seguranca. De um plano
+  concreto e diga o que e seguro e o que nao e.
+
+TAREFA 4 — Espaco aberto: qualquer outra melhoria, ideia nova, risco ou ganho
+rapido que voce enxergar. Fique a vontade pra propor.
+
+== FORMATO DA RESPOSTA ==
+- Texto puro, sem enrolacao, dividido por tarefa (1, 2, 3, 4).
+- Em cada tarefa: ACHADOS -> RECOMENDACAO -> PROXIMOS PASSOS concretos (com
+  trechos de codigo/CSS quando fizer sentido).
+- No fim: "TOP 5 PRIORIDADES" em ordem de impacto x esforco.
+- Cite fontes (link + data) em qualquer afirmacao de pesquisa.
+- Sinalize com honestidade tudo que for incerto ou que voce nao pode confirmar.
+
+== O QUE NAO PODE ==
+- Nao quebre o que ja funciona (captura A/B/C, sons, ON/OFF, guardar chat, anexar
+  arquivo).
+- Respeite o Manifest V3 (sem CDN externa em script).
+- Prefira sugestoes reversiveis e nao destrutivas.
+- Nada de bajulacao; foco em verdade tecnica e fontes.
+
+----------------------------------------------------------------
+FIM DO BLOCO PARA COLAR
+----------------------------------------------------------------
+
+FICHA TECNICA (cole junto SE o agente nao conseguir abrir o repo):
+- Versao atual: v1.4.1 (Manifest V3).
+- Arquivos da extensao: manifest.json, background.js, content.js, content.css,
+  popup.html, popup.js, popup.css, sons.js, rosto.js, rosto-da-eva.html,
+  lib/tesseract/, motor.html/motor.js (motor local opcional), icons/.
+- Ponte (Cloudflare Pages Functions): functions/enviar.js, functions/olho-nuvem.js,
+  functions/conversa.js, functions/respostas.js, functions/status.js.
+- Endpoints: https://eva-dla.pages.dev/enviar e https://eva-dla.pages.dev/olho-nuvem
+- Repo: github.com/nuanceteam/eva  (extensao em tools/olho-da-eva/)

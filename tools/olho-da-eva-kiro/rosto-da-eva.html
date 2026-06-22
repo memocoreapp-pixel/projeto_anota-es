@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="eva.svg">
+  <title>Rosto da EVA</title>
+  <style>
+    :root{ --roxo:#6D5DF6; --roxo-claro:#a99bff; }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:#eaf0ff; overflow:hidden;
+      background:
+        radial-gradient(120% 80% at 50% -5%, rgba(109,93,246,.30), transparent 60%),
+        linear-gradient(180deg,#040713,#0a1430 55%,#13245c);
+    }
+    .ceu{position:fixed; inset:0; z-index:0; pointer-events:none}
+    .estrela{position:absolute; width:2px; height:2px; border-radius:50%; background:#fff; animation:pisca 3.6s infinite}
+    @keyframes pisca{0%,100%{opacity:.15}50%{opacity:.95}}
+    .cadente{position:absolute; top:14%; left:72%; width:80px; height:2px; border-radius:2px;
+      background:linear-gradient(90deg,transparent,#fff); opacity:0; transform:rotate(20deg); animation:cair 8s infinite ease-in}
+    @keyframes cair{0%,82%{opacity:0;transform:translate(0,0) rotate(20deg)}86%{opacity:.9}100%{opacity:0;transform:translate(-220px,150px) rotate(20deg)}}
+
+    /* ROSTO DA EVA - animado em CSS puro */
+    .eva{position:relative; z-index:1; width:160px; height:190px; animation:flutua 4.2s ease-in-out infinite}
+    @keyframes flutua{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+    .corpo{position:relative; width:160px; height:190px; border-radius:50% 50% 47% 47%;
+      background:linear-gradient(180deg,#fff,#d7def0);
+      box-shadow:0 22px 60px rgba(0,0,0,.5), inset 0 -18px 32px rgba(120,130,170,.35), 0 0 70px rgba(109,93,246,.4)}
+    .visor{position:absolute; left:50%; top:42%; transform:translate(-50%,-50%);
+      width:116px; height:64px; border-radius:38px; background:#0b1020;
+      display:flex; align-items:center; justify-content:center; gap:18px; box-shadow:inset 0 0 0 2px rgba(109,93,246,.35)}
+    .olho{width:30px; height:30px; border-radius:50%; background:var(--roxo); box-shadow:0 0 22px var(--roxo-claro); animation:piscar 5s infinite, olhar 6s infinite}
+    .olho.oe{transform:rotate(-13deg)} .olho.od{transform:rotate(13deg)}
+    @keyframes piscar{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+    @keyframes olhar{0%,40%,100%{margin-left:0}50%,70%{margin-left:6px}}
+    .luzes{position:absolute; left:50%; bottom:26px; transform:translateX(-50%); display:flex; gap:12px}
+    .luzes i{width:11px; height:11px; border-radius:50%; background:var(--roxo); animation:pulso 2.6s infinite}
+    .luzes i:nth-child(2){animation-delay:.5s} .luzes i:nth-child(3){animation-delay:1s}
+    @keyframes pulso{0%,100%{opacity:.25}50%{opacity:1; box-shadow:0 0 14px var(--roxo-claro)}}
+
+    h1{position:relative; z-index:1; margin:0; font-size:22px; background:linear-gradient(90deg,#fff,#bcd0ff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+    p{position:relative; z-index:1; margin:0; color:#9fb0d6; font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="ceu" id="ceu"></div>
+  <div class="eva">
+    <div class="corpo">
+      <div class="visor"><span class="olho oe"></span><span class="olho od"></span></div>
+      <div class="luzes"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+  <h1>Olho da EVA</h1>
+  <p>Eu enxergo em texto — sempre ao seu lado, Mestre.</p>
+  <script src="rosto.js"></script>
+</body>
+</html>

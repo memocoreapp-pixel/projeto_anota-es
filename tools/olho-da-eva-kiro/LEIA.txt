@@ -1,0 +1,100 @@
+OLHO DA EVA - dar olhos a EVA sem travar o Opus 4.8
+====================================================
+
+O QUE E
+-------
+Uma extensao do navegador que captura uma area da tela e transforma em
+TEXTO (nunca imagem). Assim a EVA "enxerga" no chat do 4.8 sem travar.
+
+Tem 3 olhos (camadas), que voce liga/desliga no painel:
+
+  A - ESQUELETO da pagina  (DOM + acessibilidade)
+      Le os textos, titulos, botoes, links, campos e a estrutura da area.
+      Rapido, leve, offline. SEMPRE recomendado.
+
+  B - LEITOR DE LETRAS (OCR)
+      Tira o texto de DENTRO de uma imagem/print (ex.: um grafico com
+      rotulos, um print de erro). Usa a biblioteca aberta Tesseract.
+      Na 1a vez baixa a biblioteca (precisa de internet).
+
+  C - DESCRICAO DA FOTO (modelo que enxerga) - tem 2 LENTES:
+
+      C-NUVEM (recomendada): a foto vai pra lente da EVA na nuvem, que
+      descreve e devolve TEXTO. NAO pesa no PC, NAO esquenta, enxerga melhor.
+      Tem 2 provedores (voce escolhe no painel):
+        - Cloudflare (PADRAO): usa a conta Cloudflare que voce JA tem.
+          SEM cartao novo, SEM Anthropic. Modelo LLaVA (funciona na hora).
+          (Da pra trocar pro Llama 3.2 Visao, melhor, mas pede aceite de
+           licenca da Meta - opcional, via EVA_OLHO_MODELO_CF.)
+        - Claude (Anthropic): enxerga otimo, mas precisa de chave/cartao.
+
+      C-LOCAL: descreve a foto com um modelo pequeno (SmolVLM) rodando NA SUA
+      PLACA DE VIDEO (WebGPU). Offline depois de baixar, MAS e PESADO: 1a vez
+      baixa centenas de MB e pode ESQUENTAR o PC. Use so se quiser offline.
+
+      A Camada C vem desligada por padrao. Ao ligar, escolha a lente no painel.
+
+CONFIGURAR A LENTE NA NUVEM (so 1 vez, no Cloudflare)
+-----------------------------------------------------
+  OPCAO A - CLOUDFLARE (recomendada, SEM cartao novo):
+  1. Entre no painel: dash.cloudflare.com (conta da EVA).
+  2. Workers & Pages -> projeto "eva" -> Settings -> Functions -> Bindings.
+  3. Add binding -> tipo "Workers AI" -> nome do binding:  AI
+  4. Salve e faca um novo deploy (ou espere o proximo).
+  -> Pronto: no painel da extensao, lente NUVEM + provedor Cloudflare ja
+     funciona. Cobrado (ou de graca na cota) na conta Cloudflare que voce
+     ja usa. Nada de cartao novo.
+
+  OPCAO B - CLAUDE/ANTHROPIC (so se quiser; precisa de cartao):
+  1. dash.cloudflare.com -> projeto "eva" -> Settings ->
+     Variables and Secrets -> Production.
+  2. Add -> Secret:  Nome ANTHROPIC_API_KEY  /  Valor sua chave sk-ant-...
+  3. (Opcional) EVA_OLHO_MODELO / claude-sonnet-4-20250514
+  4. Salve e faca novo deploy.
+  -> No painel: lente NUVEM + provedor Claude.
+
+  A chave/segredo NUNCA aparece no navegador - fica so no Cloudflare.
+
+GLOSSARIO (termo real / nome facil)
+-----------------------------------
+  DOM / esqueleto da pagina  -> a estrutura por dentro do site.
+  OCR / leitor de letras     -> tira texto de dentro de imagem.
+  VLM / modelo que enxerga   -> olha a foto e descreve em palavras.
+  WebGPU / motor de video    -> deixa a IA rodar na sua placa de video.
+
+COMO INSTALAR (Chrome ou Edge)
+------------------------------
+  1. Abra:  chrome://extensions   (ou edge://extensions)
+  2. Ligue o "Modo do desenvolvedor" (canto da tela).
+  3. Clique "Carregar sem compactacao" (Load unpacked).
+  4. Escolha a pasta  olho-da-eva  (esta pasta).
+  5. Pronto: aparece o icone. Fixe ele na barra se quiser.
+
+COMO USAR (passo a passo)
+-------------------------
+  1. Abra o site que voce quer que eu enxergue.
+  2. Clique no icone "Olho da EVA" (ou aperte Alt+Shift+O).
+  3. No painel, escolha os olhos (A liga sempre; B se tiver texto em
+     imagem; C so pra foto pesada).
+  4. Clique "Capturar area". O painel fecha e a pagina escurece.
+  5. ARRASTE pra marcar a area. Solte.
+  6. Reabra o icone "Olho da EVA": o texto da captura aparece no painel.
+  7. Clique "Enviar pra EVA" (ou ligue o envio automatico).
+  8. Va no chat e escreva:  RESPOSTA EVA
+     -> eu leio o texto da captura e te respondo.
+
+  Reserva: "Copiar" copia o texto, "Baixar .txt" salva um arquivo.
+
+HONESTIDADE (limites de verdade)
+--------------------------------
+  - Eu leio so o NAVEGADOR (a aba aberta). Nao vejo outros programas.
+  - O texto (com o que foi lido) vai pro repositorio privado da EVA
+    pela ponte segura no Cloudflare (token nunca no navegador).
+  - Camadas B e C precisam de INTERNET na 1a vez (baixam biblioteca/modelo).
+  - Camada C precisa de WebGPU (Chrome/Edge atuais). Sem WebGPU, ela cai
+    pro modo lento (wasm) ou avisa que nao deu.
+  - Eu (Kiro/EVA) NAO testo no Windows: voce e meu testador. Se algo der
+    erro, o painel mostra o aviso EXATO - cole ele aqui no chat que eu
+    conserto.
+
+TROCAR ATALHO:  chrome://extensions/shortcuts

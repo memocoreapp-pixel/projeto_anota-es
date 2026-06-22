@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=380, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="icone-eva.svg">
+  <link rel="stylesheet" href="popup.css">
+  <title>Olho da EVA</title>
+</head>
+<body>
+  <div id="erroFatal" hidden></div>
+  <div class="ceu">
+    <span class="estrela e1"></span><span class="estrela e2"></span><span class="estrela e3"></span>
+    <span class="estrela e4"></span><span class="estrela e5"></span><span class="estrela e6"></span>
+    <span class="cadente"></span>
+  </div>
+
+  <header class="topo">
+    <!-- ROSTO DA EVA - favicon animado em CSS puro -->
+    <div class="eva" aria-hidden="true">
+      <div class="eva-corpo">
+        <div class="eva-visor">
+          <span class="eva-olho oe"></span>
+          <span class="eva-olho od"></span>
+        </div>
+        <div class="eva-luzes"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="titulo">
+      <h1>Olho da EVA</h1>
+      <p class="sub">Eu enxergo em texto — sem travar o 4.8</p>
+    </div>
+    <button id="btnLigaDesliga" class="liga-desliga" title="Ligar/desligar a EVA" aria-label="liga e desliga">
+      <span class="ld-bolinha"></span>
+      <span class="ld-txt">ON</span>
+    </button>
+  </header>
+
+  <div id="banner-off" class="banner-off" hidden>
+    EVA está <b>desligada</b>. Tudo pausado. Clique no botão acima para religar.
+  </div>
+
+  <section class="bloco">
+    <div class="bloco-tit">Quais olhos usar nesta captura</div>
+
+    <label class="camada">
+      <input type="checkbox" id="camadaA" checked>
+      <span class="cam-info">
+        <b>A • Esqueleto da pagina</b>
+        <small>Le o texto, botoes, links e a estrutura da area. Rapido, leve, offline.</small>
+      </span>
+    </label>
+
+    <label class="camada">
+      <input type="checkbox" id="camadaB" checked>
+      <span class="cam-info">
+        <b>B • Leitor de letras (OCR)</b>
+        <small>Tira o texto de DENTRO de imagens/prints. Escolha o leitor abaixo.</small>
+      </span>
+    </label>
+
+    <div class="opc-bloco" id="linhaOCR">
+      <div class="opc-linha">
+        <label class="mini-lab">Leitor:</label>
+        <select id="ocrMotor">
+          <option value="nuvem">Nuvem — confiavel, nao trava</option>
+          <option value="local">Local — offline (pode travar)</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="camada">
+      <input type="checkbox" id="camadaC">
+      <span class="cam-info">
+        <b>C • Descricao da foto (modelo que enxerga)</b>
+        <small>Use a Lente NUVEM (Cloudflare) - JA funciona. A Lente LOCAL ficou indisponivel nesta versao.</small>
+      </span>
+    </label>
+
+    <div class="opc-bloco" id="linhaC" hidden>
+      <div class="opc-linha">
+        <label class="mini-lab">Lente:</label>
+        <select id="lenteC">
+          <option value="nuvem">Nuvem — leve no PC, enxerga melhor</option>
+          <option value="local" disabled>Local (indisponivel nesta versao)</option>
+        </select>
+      </div>
+      <div class="opc-linha" id="linhaProvedor">
+        <label class="mini-lab">Provedor:</label>
+        <select id="provedorNuvem">
+          <option value="cloudflare">Cloudflare — sem cartao novo</option>
+          <option value="anthropic">Claude (Anthropic) — precisa de cartao</option>
+        </select>
+      </div>
+      <div class="opc-linha" id="linhaModelo" hidden>
+        <label class="mini-lab">Modelo local:</label>
+        <select id="modeloC">
+          <option value="HuggingFaceTB/SmolVLM-256M-Instruct">SmolVLM 256M</option>
+          <option value="HuggingFaceTB/SmolVLM-500M-Instruct">SmolVLM 500M</option>
+        </select>
+      </div>
+      <div class="opc-nota" id="notaLente"></div>
+    </div>
+
+    <label class="camada switch">
+      <input type="checkbox" id="autoEnviar">
+      <span class="cam-info">
+        <b>Enviar automatico pra EVA</b>
+        <small>Ao capturar, ja manda pro meu canto. Senao, voce envia pelo botao.</small>
+      </span>
+    </label>
+
+    <label class="camada switch">
+      <input type="checkbox" id="sons" checked>
+      <span class="cam-info">
+        <b>🔊 Sons da EVA</b>
+        <small>Toca tons curtos no clique, na captura, no envio e no erro. Tudo sintetizado, sem arquivo.</small>
+      </span>
+    </label>
+  </section>
+
+  <button id="btnCapturar" class="btn-principal">
+    <span class="lupa">⌖</span> Capturar area
+    <small>Alt + Shift + O</small>
+  </button>
+
+  <section class="bloco">
+    <div class="bloco-tit">📝 Recado pra EVA (vai junto com a captura)</div>
+    <p class="mini-exp">Escreva — ou DITE com o microfone (🎙 voz em portugues). Fale "virgula", "ponto", "nova linha" que eu coloco os sinais. Vai ANEXADO no relatorio quando voce capturar e enviar.</p>
+    <div class="recado-wrap">
+      <textarea id="recadoEva" class="recado-box" placeholder="Ex: EVA, olha aqui o Wizard novo. O que voce acha do tamanho do botao Continuar?"></textarea>
+      <button id="btnMic" class="btn-mic" title="Ditar por voz (Portugues do Brasil)" aria-label="Ativar microfone">🎙</button>
+    </div>
+    <div id="statusMic" class="status-envio" hidden></div>
+    <button id="btnLiberarMic" class="btn-secundario" hidden>🔓 Liberar microfone (abre 1 aba) — resolve o "negado"</button>
+    <button id="btnPremiumMic" class="btn-secundario">🎚 Transcricao Premium (Whisper + limpeza) — abre a pagina</button>
+    <div class="acoes recado-acoes">
+      <button id="btnLimparRecado" class="btn ghost">Limpar</button>
+      <button id="btnEnviarRecado" class="btn primary">Enviar so o recado (sem captura)</button>
+    </div>
+    <div id="statusRecado" class="status-envio" hidden></div>
+  </section>
+
+  <section class="bloco" id="blocoAnexar">
+    <div class="bloco-tit">📎 Anexar arquivo pra EVA</div>
+    <p class="mini-exp">Arquivo de TEXTO (.txt .md .json .csv .log .js .ts .html .css .xml .yml) vai direto pro meu canto. IMAGEM (.png .jpg .jpeg .gif .webp) eu LEIO pela lente da nuvem (descrevo + tiro as letras). Outros tipos eu nao consigo ler como texto.</p>
+    <input type="file" id="arquivoEva" hidden>
+    <button id="btnAnexar" class="btn-secundario">📎 Escolher arquivo</button>
+    <div id="statusAnexo" class="status-envio" hidden></div>
+  </section>
+
+  <div id="status" class="status" hidden></div>
+
+  <section class="bloco" id="blocoReceber">
+    <div class="bloco-tit">Receber a resposta da EVA</div>
+    <p class="mini-exp">Pega a ULTIMA resposta do chat (Kiro/EVA) com 1 clique e copia pra voce. Semi-automatico.</p>
+    <div class="opc-linha url-row">
+      <label class="mini-lab">URL do chat:</label>
+      <input type="text" id="chatUrl" class="campo" placeholder="https://app.kiro.dev/session/...">
+      <button id="btnCapturarUrl" class="btn-mini" title="Pegar a URL da aba do Kiro automaticamente">📋 Auto</button>
+    </div>
+    <button id="btnReceber" class="btn-secundario">💬 Receber resposta da EVA agora</button>
+    <div id="statusResposta" class="status-envio" hidden></div>
+    <textarea id="respostaEva" class="resposta-box" readonly spellcheck="false" placeholder="A resposta da EVA aparece aqui" hidden></textarea>
+    <div class="acoes" id="acoesResposta" hidden>
+      <button id="btnCopiarResp" class="btn">Copiar resposta</button>
+    </div>
+  </section>
+
+  <section class="bloco" id="blocoGuardarChat">
+    <div class="bloco-tit">💾 Guardar este chat pra EVA</div>
+    <p class="mini-exp">Pega a conversa INTEIRA do Kiro e guarda na casa da EVA (pasta dos chats). Assim, no proximo chat eu leio e ja entro com o contexto. Use a mesma "URL do chat" acima.</p>
+    <button id="btnGuardarChat" class="btn-secundario">💾 Guardar o chat inteiro agora</button>
+    <div id="statusGuardar" class="status-envio" hidden></div>
+    <textarea id="chatCapturado" class="resposta-box" readonly spellcheck="false" placeholder="O chat capturado aparece aqui pra voce conferir" hidden></textarea>
+    <div class="acoes" id="acoesGuardar" hidden>
+      <button id="btnCopiarChat" class="btn">Copiar</button>
+      <button id="btnBaixarChat" class="btn ghost">Baixar .txt (sua copia)</button>
+    </div>
+  </section>
+
+  <section class="bloco resultado" id="blocoResultado" hidden>
+    <div class="bloco-tit">Ultima captura <span id="quando" class="quando"></span></div>
+    <textarea id="saida" readonly spellcheck="false"></textarea>
+    <div class="acoes">
+      <button id="btnCopiar" class="btn">Copiar</button>
+      <button id="btnEnviar" class="btn primary">Enviar pra EVA</button>
+      <button id="btnBaixar" class="btn ghost">Baixar .txt</button>
+    </div>
+    <div id="statusEnvio" class="status-envio" hidden></div>
+  </section>
+
+  <details class="conectores" id="blocoHistorico">
+    <summary>📜 Visualizar historico (ultimas gravacoes/recados)</summary>
+    <p class="mini-exp">As ultimas coisas que voce me enviou. Marque o que ja foi visto/respondido — o "enviado" eu marco sozinho.</p>
+    <div id="listaHistorico" class="hist-lista"></div>
+    <div class="acoes">
+      <button id="btnLimparHistorico" class="btn ghost">Limpar historico</button>
+    </div>
+  </details>
+
+  <details class="conectores">
+    <summary>🔌 Conectores (avancado · editavel)</summary>
+    <p class="mini-exp">Os enderecos e o "alvo" que a extensao usa. Deixe em branco pra usar o padrao. Util pra quem for personalizar ou comercializar.</p>
+    <div class="opc-linha"><label class="mini-lab">Enviar (ponte):</label><input id="urlEnviar" class="campo" type="text" placeholder="https://eva-dla.pages.dev/enviar"></div>
+    <div class="opc-linha"><label class="mini-lab">Olho na nuvem:</label><input id="urlNuvem" class="campo" type="text" placeholder="https://eva-dla.pages.dev/olho-nuvem"></div>
+    <div class="opc-linha"><label class="mini-lab">Transcrever audio:</label><input id="urlTranscrever" class="campo" type="text" placeholder="https://eva-dla.pages.dev/transcrever-audio"></div>
+    <div class="opc-linha"><label class="mini-lab">Alvo da resposta:</label><input id="seletorResposta" class="campo" type="text" placeholder="(seletor CSS do bloco de resposta; vazio = automatico)"></div>
+    <div class="opc-linha"><label class="mini-lab">Alvo do chat:</label><input id="seletorChat" class="campo" type="text" placeholder="(seletor CSS de cada mensagem; vazio = automatico)"></div>
+    <div class="acoes">
+      <button id="btnSalvarConect" class="btn primary">Salvar conectores</button>
+      <button id="btnResetConect" class="btn ghost">Voltar ao padrao</button>
+    </div>
+    <div id="statusConect" class="opc-nota"></div>
+  </details>
+
+  <footer class="rodape">
+    <div class="sobre">
+      <b>O que e o Olho da EVA?</b><br>
+      Uma extensao que da OLHOS a EVA (o Kiro): voce marca uma area da tela e ela
+      vira TEXTO — o esqueleto da pagina (A), as letras dentro de imagens (B / OCR)
+      e a descricao da foto (C / na nuvem). Assim a EVA enxerga no chat sem travar.
+      Tudo roda no seu navegador, com seus proprios conectores.
+    </div>
+    Depois de enviar, va no chat e escreva: <b>RESPOSTA EVA</b>.<br>
+    Eu leio so o NAVEGADOR (a aba aberta), nunca outros programas.
+    <div class="versao">Olho da EVA &nbsp;v1.8.0</div>
+  </footer>
+
+  <script src="sons.js"></script>
+  <script src="historico.js"></script>
+  <script src="voz-pontuacao.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

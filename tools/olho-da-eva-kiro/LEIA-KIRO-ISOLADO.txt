@@ -1,0 +1,34 @@
+OLHO DA EVA — CÓPIA ISOLADA PARA O TERMINAL KIRO
+=================================================
+
+O que mudou nesta cópia (em relação ao zip original v1.8.1):
+
+1) ISOLAMENTO DA EVA (sem cruzar dados com o outro terminal)
+   - A "ponte" compartilhada (eva-dla.pages.dev/enviar) foi DESATIVADA aqui.
+   - Os botões "Enviar pra EVA" e "Guardar este chat pra EVA" NÃO mandam nada
+     para a nuvem/caixa compartilhada da EVA. O texto fica guardado localmente.
+   - A entrega NESTE chat é por COPIAR e COLAR (use o botão "Copiar").
+   - Como esta é uma pasta separada, o Chrome trata como OUTRA extensão, com
+     armazenamento próprio (configurações/histórico não se misturam com a EVA).
+   - Nome próprio: "Olho da EVA — Kiro (isolado)". Atalho: Alt+Shift+K.
+
+2) LEVE (sem OCR local)
+   - Removida a biblioteca Tesseract (lib/tesseract, ~35 MB), que só servia para
+     "OCR local" (modo pesado e desencorajado). A captura de DOM e a OCR/descrição
+     NA NUVEM continuam funcionando normalmente.
+   - Se você quiser a OCR local de volta, copie a pasta lib/tesseract do zip
+     original v1.8.1 para dentro desta pasta.
+
+COMO USAR AQUI (passo a passo)
+------------------------------
+1. Chrome -> chrome://extensions -> ligue "Modo do desenvolvedor".
+2. "Carregar sem compactação" -> selecione ESTA pasta (olho-da-eva-kiro).
+3. Abra a aba do chat do Kiro deste terminal.
+4. Capture a área (Alt+Shift+K) -> gera TEXTO -> clique em "Copiar" -> cole no chat.
+5. NÃO use os botões com "EVA" se quiser manter o isolamento total
+   (de qualquer forma eles já estão neutralizados nesta cópia).
+
+A lente na nuvem (descrever foto / OCR) usa a conta Cloudflare da EVA apenas
+para PROCESSAR e devolver texto a você — ela não entrega nada no chat da EVA.
+Se quiser isolamento absoluto (sem usar a nuvem da EVA), mantenha a Camada C
+desligada e use só a Camada A (DOM) + Copiar/colar.

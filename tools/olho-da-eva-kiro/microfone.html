@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/svg+xml" href="icone-eva.svg">
+  <title>Olho da EVA — Microfone</title>
+  <style>
+    :root{ --noite-1:#040713; --noite-2:#0a1430; --noite-3:#13245c; --roxo:#6D5DF6; --roxo-claro:#a99bff; --texto:#eaf0ff; --suave:#9fb0d6; }
+    *{ box-sizing:border-box; }
+    body{ margin:0; min-height:100vh; font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--texto); background:linear-gradient(180deg,var(--noite-1),var(--noite-3)); padding:28px; }
+    .wrap{ max-width:640px; margin:0 auto; }
+    h1{ font-size:20px; margin:0 0 4px; }
+    .sub{ color:var(--suave); margin:0 0 20px; }
+    .card{ background:rgba(255,255,255,.05); border:1px solid rgba(109,93,246,.35); border-radius:16px; padding:18px 18px; margin:14px 0; }
+    .card h2{ font-size:15px; margin:0 0 8px; color:var(--roxo-claro); }
+    .passo{ display:inline-block; width:24px; height:24px; border-radius:50%; background:var(--roxo); color:#fff; text-align:center; line-height:24px; font-weight:700; margin-right:8px; }
+    button{ cursor:pointer; border:none; border-radius:10px; padding:11px 16px; font:700 14px system-ui; color:#fff;
+      background:linear-gradient(135deg,var(--roxo),#4b3fd6); }
+    button.ghost{ background:rgba(255,255,255,.08); color:var(--texto); border:1px solid rgba(255,255,255,.16); }
+    button.gravando{ background:#e0466b; animation:pulse 1s infinite; }
+    @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(224,70,107,.55)} 70%{box-shadow:0 0 0 10px rgba(224,70,107,0)} 100%{box-shadow:0 0 0 0 rgba(224,70,107,0)} }
+    textarea{ width:100%; min-height:120px; margin-top:10px; padding:12px; border-radius:10px; color:var(--texto);
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); font:14px/1.45 system-ui; resize:vertical; }
+    .status{ margin-top:10px; padding:8px 12px; border-radius:9px; font-weight:600; display:none; }
+    .status.ok{ background:rgba(46,160,90,.18); color:#7ee0a8; display:block; }
+    .status.erro{ background:rgba(224,70,107,.16); color:#ffb4c4; display:block; }
+    .status.on{ background:rgba(109,93,246,.16); color:var(--roxo-claro); display:block; }
+    .dica{ color:var(--suave); font-size:13px; }
+    .acoes{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🎙 Microfone da EVA</h1>
+    <p class="sub">Esta pagina libera o microfone para a extensao (o popup sozinho nao consegue — e regra do Chrome). Aqui o ditado funciona garantido.</p>
+
+    <div class="card">
+      <h2><span class="passo">1</span>Liberar o microfone (uma vez)</h2>
+      <p class="dica">Clique no botao e, quando o Chrome perguntar, escolha <b>Permitir</b>. Depois disso o microfone fica liberado para a extensao.</p>
+      <button id="btnLiberar">Liberar microfone agora</button>
+      <div id="statusLiberar" class="status"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="passo">2</span>Ditar aqui (garantido)</h2>
+      <p class="dica">Clique em <b>Comecar a falar</b>, dite em portugues, e clique de novo para parar. Diga <b>"virgula"</b>, <b>"ponto"</b>, <b>"interrogacao"</b>, <b>"nova linha"</b> que eu coloco os sinais. Depois <b>Salvar na caixa de Recado</b> — o texto aparece no painel da extensao.</p>
+      <div class="acoes">
+        <button id="btnDitar">🎙 Comecar a falar</button>
+        <button id="btnSalvar" class="ghost">Salvar na caixa de Recado</button>
+        <button id="btnEnviarDitado" class="ghost">📨 Enviar pra EVA</button>
+        <button id="btnLimpar" class="ghost">Limpar</button>
+      </div>
+      <div id="statusDitar" class="status"></div>
+      <textarea id="texto" placeholder="O que voce ditar aparece aqui..."></textarea>
+    </div>
+
+    <div class="card">
+      <h2><span class="passo">3</span>Premium — Whisper + limpeza (mais preciso)</h2>
+      <p class="dica">Grava seu audio e manda pra nuvem da EVA: o <b>Whisper</b> transcreve e uma IA <b>pontua e arruma sozinha</b>. Precisa de internet. Faca o passo 1 (liberar) antes.<br><b style="color:var(--roxo-claro)">Importante:</b> aqui o texto aparece <b>depois</b> que voce clica em Parar (o Whisper ouve a gravacao inteira — por isso e mais preciso). Pra ver as palavras <b>ao vivo</b> enquanto fala, use o <b>Passo 2</b>.</p>
+      <div class="acoes">
+        <button id="btnGravar">⏺ Gravar</button>
+        <button id="btnPararGravar" class="ghost" disabled>⏹ Parar e transcrever</button>
+        <button id="btnSalvarPremium" class="ghost">Salvar na caixa de Recado</button>
+        <button id="btnEnviarPremium" class="ghost">📨 Enviar pra EVA</button>
+      </div>
+      <div id="statusPremium" class="status"></div>
+      <textarea id="textoPremium" placeholder="A transcricao refinada (pontuada) aparece aqui..."></textarea>
+    </div>
+
+    <p class="dica">Dica: se o botao do microfone no painel continuar dando erro, use SEMPRE esta pagina — ela e o caminho garantido.</p>
+  </div>
+  <script src="rosto.js"></script>
+  <script src="historico.js"></script>
+  <script src="voz-pontuacao.js"></script>
+  <script src="microfone.js"></script>
+</body>
+</html>

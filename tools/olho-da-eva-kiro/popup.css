@@ -1,0 +1,221 @@
+/* Olho da EVA - painel premium (ceu estrelado da EVA, vidro embacado) */
+:root{
+  --noite-1:#040713; --noite-2:#0a1430; --noite-3:#13245c;
+  --roxo:#6D5DF6; --roxo-claro:#a99bff;
+  --texto:#eaf0ff; --suave:#9fb0d6; --linha:rgba(255,255,255,.10);
+  --vidro:rgba(255,255,255,.06); --vidro-borda:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0; width:380px; min-width:380px; max-width:380px}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--texto); position:relative; overflow-x:hidden; overflow-y:auto;
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(109,93,246,.28), transparent 60%),
+    linear-gradient(180deg, var(--noite-1), var(--noite-2) 55%, var(--noite-3));
+  padding:14px 14px 16px;
+}
+
+/* ---- ceu / estrelas ---- */
+.ceu{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0}
+.estrela{position:absolute; width:2px; height:2px; border-radius:50%; background:#fff; opacity:.5; animation:pisca 3.5s infinite ease-in-out}
+.estrela.e1{left:12%; top:18%}
+.estrela.e2{left:30%; top:8%; background:#bcd6ff}
+.estrela.e3{left:62%; top:14%}
+.estrela.e4{left:82%; top:22%; background:#bcd6ff}
+.estrela.e5{left:46%; top:26%}
+.estrela.e6{left:90%; top:10%}
+.estrela.e2{animation-delay:.6s}.estrela.e3{animation-delay:1.1s}.estrela.e4{animation-delay:1.8s}.estrela.e5{animation-delay:2.3s}.estrela.e6{animation-delay:.3s}
+@keyframes pisca{0%,100%{opacity:.15}50%{opacity:.9}}
+.cadente{position:absolute; top:12%; left:70%; width:60px; height:2px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, #fff); opacity:0; transform:rotate(20deg);
+  animation:cair 7s infinite ease-in}
+@keyframes cair{0%,82%{opacity:0; transform:translate(0,0) rotate(20deg)}86%{opacity:.9}100%{opacity:0; transform:translate(-180px,120px) rotate(20deg)}}
+
+/* ---- topo / EVA ---- */
+.topo{position:relative; z-index:1; display:flex; align-items:center; gap:12px; margin-bottom:12px}
+.titulo h1{margin:0; font-size:18px; letter-spacing:.3px; background:linear-gradient(90deg,#fff,#bcd0ff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+.titulo .sub{margin:2px 0 0; font-size:11.5px; color:var(--suave)}
+
+/* ROSTO DA EVA animado */
+.eva{width:46px; height:54px; flex:0 0 auto; animation:flutua 4s ease-in-out infinite}
+@keyframes flutua{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.eva-corpo{position:relative; width:46px; height:54px; border-radius:50% 50% 47% 47%;
+  background:linear-gradient(180deg,#ffffff,#d7def0);
+  box-shadow:0 6px 18px rgba(0,0,0,.45), inset 0 -6px 10px rgba(120,130,170,.35), 0 0 22px rgba(109,93,246,.35)}
+.eva-visor{position:absolute; left:50%; top:42%; transform:translate(-50%,-50%);
+  width:34px; height:20px; border-radius:12px; background:#0b1020;
+  display:flex; align-items:center; justify-content:center; gap:5px;
+  box-shadow:inset 0 0 0 1px rgba(109,93,246,.35)}
+.eva-olho{width:9px; height:9px; border-radius:50%; background:var(--roxo);
+  box-shadow:0 0 8px var(--roxo-claro); animation:piscar 5s infinite}
+.eva-olho.oe{transform:rotate(-13deg)}
+.eva-olho.od{transform:rotate(13deg)}
+@keyframes piscar{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
+.eva-luzes{position:absolute; left:50%; bottom:8px; transform:translateX(-50%); display:flex; gap:4px}
+.eva-luzes i{width:4px; height:4px; border-radius:50%; background:var(--roxo); opacity:.8; animation:pulsoluz 2.6s infinite}
+.eva-luzes i:nth-child(2){animation-delay:.5s}
+.eva-luzes i:nth-child(3){animation-delay:1s}
+@keyframes pulsoluz{0%,100%{opacity:.25}50%{opacity:1; box-shadow:0 0 6px var(--roxo-claro)}}
+
+/* ---- blocos ---- */
+.bloco{position:relative; z-index:1; background:var(--vidro); border:1px solid var(--vidro-borda);
+  border-radius:14px; padding:12px; margin-bottom:12px; backdrop-filter:blur(8px) saturate(140%); -webkit-backdrop-filter:blur(8px) saturate(140%)}
+.bloco-tit{font-size:12px; font-weight:700; color:var(--roxo-claro); text-transform:uppercase; letter-spacing:.6px; margin-bottom:10px}
+
+.camada{display:flex; gap:10px; align-items:flex-start; padding:8px; border-radius:10px; cursor:pointer; transition:background .15s}
+.camada:hover{background:rgba(255,255,255,.04)}
+.camada input{margin-top:3px; width:16px; height:16px; accent-color:var(--roxo); flex:0 0 auto}
+.cam-info{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1 1 auto}
+.cam-info b{font-size:13px; line-height:1.25}
+.cam-info small{font-size:11px; color:var(--suave); line-height:1.35; word-wrap:break-word; overflow-wrap:break-word}
+.cam-info small.alerta{color:#ffd27a}
+
+.opc-bloco{padding:4px 8px 6px 36px}
+.opc-linha{display:flex; align-items:center; gap:8px; padding:6px 0}
+.opc-nota{font-size:10.5px; color:#ffd27a; line-height:1.4; padding-top:2px}
+.mini-lab{font-size:11px; color:var(--suave); flex:0 0 auto}
+#modeloC,#lenteC{flex:1; background:rgba(0,0,0,.3); color:var(--texto); border:1px solid var(--vidro-borda); border-radius:8px; padding:6px; font-size:12px}
+
+/* ---- botao principal ---- */
+.btn-principal{position:relative; z-index:1; width:100%; border:0; cursor:pointer; color:#fff;
+  background:linear-gradient(135deg,var(--roxo),#4b3fd6); border-radius:14px; padding:14px;
+  font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 10px 26px rgba(75,63,214,.45); transition:transform .12s, box-shadow .12s}
+.btn-principal small{font-weight:500; opacity:.8; font-size:11px}
+.btn-principal .lupa{font-size:18px}
+.btn-principal:hover{transform:translateY(-1px); box-shadow:0 14px 30px rgba(75,63,214,.55)}
+.btn-principal:active{transform:translateY(0)}
+
+/* ---- status ---- */
+.status{position:relative; z-index:1; margin-top:10px; font-size:12px; color:var(--suave); background:rgba(0,0,0,.25); border:1px solid var(--linha); border-radius:10px; padding:9px 11px}
+.status.on{color:#ffd27a}
+.status.ok{color:#7ee0a8}
+.status.erro{color:#ff9a9a}
+
+/* ---- resultado ---- */
+.resultado{margin-top:12px}
+.quando{font-weight:400; color:var(--suave); text-transform:none; letter-spacing:0; margin-left:6px}
+#saida{width:100%; height:150px; resize:vertical; background:rgba(0,0,0,.32); color:#dbe6ff;
+  border:1px solid var(--vidro-borda); border-radius:10px; padding:10px; font:12px/1.45 ui-monospace,Menlo,Consolas,monospace}
+.acoes{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
+.btn{flex:1; min-width:90px; border:1px solid var(--vidro-borda); background:rgba(255,255,255,.06); color:var(--texto);
+  border-radius:10px; padding:10px; font-size:12.5px; font-weight:600; cursor:pointer; transition:background .15s}
+.btn:hover{background:rgba(255,255,255,.12)}
+.btn.primary{background:linear-gradient(135deg,var(--roxo),#4b3fd6); border-color:transparent}
+.btn.ghost{background:transparent}
+.status-envio{margin-top:8px; font-size:12px; padding:8px 10px; border-radius:9px; background:rgba(0,0,0,.25); border:1px solid var(--linha)}
+.status-envio.ok{color:#7ee0a8}
+.status-envio.erro{color:#ff9a9a}
+
+/* ---- rodape ---- */
+.rodape{position:relative; z-index:1; margin-top:12px; font-size:11px; color:var(--suave); line-height:1.5; text-align:center}
+.rodape b{color:var(--roxo-claro)}
+
+/* nada de @media: largura fixa em 380px (popup do Chrome respeita html/body) */
+
+
+/* ---- novidades: receber resposta, conectores, sobre ---- */
+.mini-exp{position:relative; z-index:1; font-size:11px; color:var(--suave); margin:0 0 8px; line-height:1.4}
+.campo{flex:1; min-width:0; background:rgba(0,0,0,.32); color:#dbe6ff; border:1px solid var(--vidro-borda);
+  border-radius:8px; padding:7px 9px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace}
+.campo::placeholder{color:#6d7da6}
+.btn-secundario{position:relative; z-index:1; width:100%; margin-top:4px; border:1px solid var(--vidro-borda); cursor:pointer;
+  background:linear-gradient(135deg, rgba(2,213,220,.18), rgba(1,148,252,.18)); color:var(--texto);
+  border-radius:12px; padding:12px; font-size:14px; font-weight:700; transition:background .15s, transform .12s}
+.btn-secundario:hover{background:linear-gradient(135deg, rgba(2,213,220,.30), rgba(1,148,252,.30)); transform:translateY(-1px)}
+.resposta-box{width:100%; height:120px; resize:vertical; margin-top:10px; background:rgba(0,0,0,.32); color:#dbe6ff;
+  border:1px solid var(--vidro-borda); border-radius:10px; padding:10px; font:12px/1.45 ui-monospace,Menlo,Consolas,monospace}
+
+.conectores{position:relative; z-index:1; background:var(--vidro); border:1px solid var(--vidro-borda);
+  border-radius:14px; padding:10px 12px; margin-bottom:12px; backdrop-filter:blur(8px) saturate(140%); -webkit-backdrop-filter:blur(8px) saturate(140%)}
+.conectores summary{cursor:pointer; font-size:12px; font-weight:700; color:var(--roxo-claro); text-transform:uppercase; letter-spacing:.5px; list-style:none}
+.conectores summary::-webkit-details-marker{display:none}
+.conectores summary::before{content:'▸ '; color:var(--roxo-claro)}
+.conectores[open] summary::before{content:'▾ '}
+.conectores .opc-linha{padding:6px 0}
+
+.sobre{background:rgba(255,255,255,.05); border:1px solid var(--linha); border-radius:10px; padding:10px 12px;
+  margin-bottom:10px; font-size:11px; line-height:1.5; color:#c5d2f0; text-align:left}
+.sobre b{color:var(--roxo-claro)}
+
+/* marca (icone CorelDRAW visivel no popup) + versao */
+.marca{flex:0 0 auto; margin-left:auto; width:40px; height:40px; border-radius:11px;
+  box-shadow:0 4px 14px rgba(255,0,94,.35), 0 0 0 1px rgba(255,255,255,.08)}
+.versao{margin-top:8px; font-size:10px; letter-spacing:.5px; color:var(--roxo-claro); opacity:.85; font-weight:700}
+
+
+
+/* botao mini "Auto" da URL */
+.url-row{flex-wrap:wrap}
+.btn-mini{flex:0 0 auto; cursor:pointer; border:1px solid var(--vidro-borda);
+  background:linear-gradient(135deg, rgba(2,213,220,.18), rgba(1,148,252,.18));
+  color:var(--texto); border-radius:8px; padding:6px 10px; font-size:12px; font-weight:700;
+  transition:background .15s, transform .12s}
+.btn-mini:hover{background:linear-gradient(135deg, rgba(2,213,220,.30), rgba(1,148,252,.30)); transform:translateY(-1px)}
+.btn-mini.ok{background:linear-gradient(135deg, rgba(126,224,168,.30), rgba(2,213,220,.30))}
+.btn-mini.erro{background:rgba(255,154,154,.20)}
+
+
+
+/* auto-diagnostico: caixa de erro visivel */
+#erroFatal{position:relative; z-index:2; margin:0 0 12px; padding:10px 12px; border-radius:10px;
+  background:rgba(255,90,90,.16); border:1px solid rgba(255,120,120,.5); color:#ffd7d7;
+  font:600 12px/1.45 system-ui,sans-serif}
+
+
+
+/* botao mestre Liga/Desliga */
+.liga-desliga{flex:0 0 auto; cursor:pointer; border:1px solid var(--vidro-borda); padding:6px 10px;
+  background:linear-gradient(135deg, rgba(126,224,168,.20), rgba(2,213,220,.20));
+  color:var(--texto); border-radius:999px; display:flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:800; letter-spacing:.6px; transition:background .15s, transform .12s}
+.liga-desliga:hover{transform:translateY(-1px)}
+.liga-desliga .ld-bolinha{width:8px; height:8px; border-radius:50%; background:#7ee0a8; box-shadow:0 0 8px #7ee0a8}
+.liga-desliga.off{background:linear-gradient(135deg, rgba(255,154,154,.20), rgba(155,155,155,.18))}
+.liga-desliga.off .ld-bolinha{background:#888; box-shadow:none}
+.banner-off{position:relative; z-index:2; margin:0 0 12px; padding:10px 12px; border-radius:10px;
+  background:rgba(155,155,155,.18); border:1px solid rgba(255,255,255,.12); color:#dbe3f5;
+  font:600 12px/1.4 system-ui,sans-serif}
+.banner-off b{color:#fff}
+
+
+
+/* recado pra EVA (caixa de texto que vai com a captura) */
+.recado-box{width:100%; height:96px; resize:vertical; background:rgba(0,0,0,.32); color:#dbe6ff;
+  border:1px solid var(--vidro-borda); border-radius:10px; padding:10px;
+  font:13px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.recado-box::placeholder{color:#6d7da6}
+.recado-acoes{margin-top:10px}
+
+
+
+/* Microfone (voz -> texto) no Recado pra EVA */
+.recado-wrap { position: relative; }
+.recado-wrap .recado-box { padding-right: 46px; }
+.btn-mic {
+  position: absolute; right: 8px; bottom: 8px; width: 34px; height: 34px;
+  border-radius: 50%; cursor: pointer; font-size: 15px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: #eaf0ff; background: rgba(109, 93, 246, 0.18);
+  border: 1px solid rgba(109, 93, 246, 0.5);
+}
+.btn-mic:hover { background: rgba(109, 93, 246, 0.32); }
+.btn-mic.gravando { background: #e0466b; border-color: #e0466b; color: #fff; animation: micpulse 1s infinite; }
+@keyframes micpulse {
+  0%   { box-shadow: 0 0 0 0 rgba(224, 70, 107, 0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(224, 70, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 70, 107, 0); }
+}
+
+
+
+/* Historico de gravacoes/recados */
+.hist-lista { display: flex; flex-direction: column; gap: 8px; margin: 6px 0; }
+.hist-vazio { color: var(--suave, #9fb0d6); font-size: 12px; padding: 6px 2px; }
+.hist-item { border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 8px 10px; background: rgba(255,255,255,.04); }
+.hist-quando { font-size: 11px; color: var(--suave, #9fb0d6); margin-bottom: 4px; }
+.hist-texto { font-size: 12.5px; line-height: 1.4; color: var(--texto, #eaf0ff); white-space: pre-wrap; word-break: break-word; margin-bottom: 6px; }
+.hist-marks { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
+.hist-chk { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; color: var(--suave, #9fb0d6); cursor: pointer; }
+.hist-chk input { accent-color: #6D5DF6; }
