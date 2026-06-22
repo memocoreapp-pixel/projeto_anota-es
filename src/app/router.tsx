@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Home } from "@/pages/Home";
-import { SpacePlaceholder } from "@/pages/SpacePlaceholder";
+import { SpaceListPage } from "@/pages/spaces/SpaceListPage";
 import { CoverLabPage } from "@/components/spaces/cover-lab/CoverLabPage";
 
 // Sob GitHub Pages o app roda em um subcaminho (ex.: /projeto_anota-es/).
@@ -15,12 +15,7 @@ export const router = createBrowserRouter(
       element: <AppLayout />,
       children: [
         { index: true, element: <Home /> },
-        { path: "portfolios", element: <SpacePlaceholder spaceId="portfolios" /> },
-        { path: "projetos", element: <SpacePlaceholder spaceId="projetos" /> },
-        { path: "cadernos", element: <SpacePlaceholder spaceId="cadernos" /> },
-        { path: "anotacoes", element: <SpacePlaceholder spaceId="anotacoes" /> },
-        { path: "rascunhos", element: <SpacePlaceholder spaceId="rascunhos" /> },
-        { path: "cards", element: <SpacePlaceholder spaceId="cards" /> },
+        { path: "espacos/:spaceId", element: <SpaceListPage /> },
         { path: "cover-lab", element: <CoverLabPage /> },
       ],
     },
