@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 type PortfolioThemeId =
   | "purple"
   | "blue"
@@ -183,6 +185,32 @@ const portfolioThemes: Record<
 };
 
 function TrophyLaurel({ frame }: { frame: string }) {
+  const rawId = useId().replace(/:/g, "");
+  const goldId = `portfolioGold-${rawId}`;
+  const softGoldId = `portfolioSoftGold-${rawId}`;
+  const embossId = `portfolioEmboss-${rawId}`;
+  const darkEmbossId = `portfolioDarkEmboss-${rawId}`;
+
+  const leftLeaves = [
+    { x: 54, y: 103, r: -46, s: 0.86 },
+    { x: 49, y: 92, r: -55, s: 0.92 },
+    { x: 47, y: 80, r: -65, s: 1 },
+    { x: 49, y: 68, r: -76, s: 1.05 },
+    { x: 54, y: 57, r: -87, s: 1.02 },
+    { x: 62, y: 47, r: -100, s: 0.96 },
+    { x: 73, y: 39, r: -114, s: 0.88 },
+  ];
+
+  const rightLeaves = [
+    { x: 166, y: 103, r: 46, s: 0.86 },
+    { x: 171, y: 92, r: 55, s: 0.92 },
+    { x: 173, y: 80, r: 65, s: 1 },
+    { x: 171, y: 68, r: 76, s: 1.05 },
+    { x: 166, y: 57, r: 87, s: 1.02 },
+    { x: 158, y: 47, r: 100, s: 0.96 },
+    { x: 147, y: 39, r: 114, s: 0.88 },
+  ];
+
   return (
     <svg
       viewBox="0 0 220 170"
@@ -190,85 +218,171 @@ function TrophyLaurel({ frame }: { frame: string }) {
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="portfolioGold" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="#FFF1B8" />
-          <stop offset="38%" stopColor={frame} />
-          <stop offset="72%" stopColor="#9F6B1D" />
-          <stop offset="100%" stopColor="#FFE49A" />
+        <linearGradient id={goldId} x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stopColor="#FFF3BF" />
+          <stop offset="26%" stopColor="#E5BD61" />
+          <stop offset="52%" stopColor={frame} />
+          <stop offset="76%" stopColor="#9B671F" />
+          <stop offset="100%" stopColor="#FFE8A3" />
         </linearGradient>
 
-        <filter id="portfolioEmboss" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="2" stdDeviation="1.2" floodOpacity=".45" />
+        <linearGradient id={softGoldId} x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stopColor="#FFF6CC" />
+          <stop offset="48%" stopColor={frame} />
+          <stop offset="100%" stopColor="#8F5E1D" />
+        </linearGradient>
+
+        <filter id={embossId} x="-25%" y="-25%" width="150%" height="150%">
           <feDropShadow
             dx="0"
-            dy="-1"
-            stdDeviation=".6"
+            dy="2"
+            stdDeviation="1.1"
+            floodColor="#000"
+            floodOpacity=".42"
+          />
+          <feDropShadow
+            dx="0"
+            dy="-0.8"
+            stdDeviation=".5"
             floodColor="#fff"
-            floodOpacity=".22"
+            floodOpacity=".20"
+          />
+        </filter>
+
+        <filter id={darkEmbossId} x="-25%" y="-25%" width="150%" height="150%">
+          <feDropShadow
+            dx="0"
+            dy="2.2"
+            stdDeviation="1.4"
+            floodColor="#000"
+            floodOpacity=".48"
           />
         </filter>
       </defs>
 
-      <circle cx="110" cy="84" r="60" fill="none" stroke={frame} strokeWidth="1.5" opacity=".5" />
-      <circle cx="110" cy="84" r="52" fill="rgba(0,0,0,.12)" stroke={frame} strokeWidth="2" opacity=".6" />
-      <circle cx="110" cy="84" r="45" fill="none" stroke={frame} strokeWidth="1" opacity=".35" />
+      <circle
+        cx="110"
+        cy="82"
+        r="60"
+        fill="rgba(0,0,0,.08)"
+        stroke={`url(#${goldId})`}
+        strokeWidth="1.7"
+        opacity=".88"
+        filter={`url(#${darkEmbossId})`}
+      />
+
+      <circle
+        cx="110"
+        cy="82"
+        r="49"
+        fill="rgba(255,255,255,.025)"
+        stroke={`url(#${softGoldId})`}
+        strokeWidth="1"
+        opacity=".55"
+      />
+
+      <g filter={`url(#${embossId})`}>
+        <path
+          d="M110 13.5l4.4 8.8 9.7 1.4-7 6.8 1.7 9.6-8.8-4.6-8.8 4.6 1.7-9.6-7-6.8 9.7-1.4 4.4-8.8z"
+          fill={`url(#${goldId})`}
+        />
+        <path
+          d="M78.5 33.5l2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7 2.2-4.5z"
+          fill={`url(#${goldId})`}
+          opacity=".88"
+        />
+        <path
+          d="M141.5 33.5l2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7 2.2-4.5z"
+          fill={`url(#${goldId})`}
+          opacity=".88"
+        />
+      </g>
 
       <path
-        d="M110 12l4.5 9.2 10.1 1.5-7.3 7.1 1.7 10-9-4.8-9 4.8 1.7-10-7.3-7.1 10.1-1.5L110 12z"
-        fill="url(#portfolioGold)"
-        filter="url(#portfolioEmboss)"
-      />
-      <path
-        d="M76 30l2.5 5.1 5.6.8-4 3.9.9 5.5-5-2.6-5 2.6.9-5.5-4-3.9 5.6-.8L76 30z"
-        fill="url(#portfolioGold)"
+        d="M83 128C55 116 39 90 45 62"
+        fill="none"
+        stroke={`url(#${softGoldId})`}
+        strokeWidth="2"
+        strokeLinecap="round"
         opacity=".9"
       />
       <path
-        d="M144 30l2.5 5.1 5.6.8-4 3.9.9 5.5-5-2.6-5 2.6.9-5.5-4-3.9 5.6-.8L144 30z"
-        fill="url(#portfolioGold)"
+        d="M137 128c28-12 44-38 38-66"
+        fill="none"
+        stroke={`url(#${softGoldId})`}
+        strokeWidth="2"
+        strokeLinecap="round"
         opacity=".9"
       />
 
-      <path d="M110 142 C133 135 147 110 150 60" fill="none" stroke="url(#portfolioGold)" strokeWidth="2.4" strokeLinecap="round" opacity=".85" />
-      <path d="M110 142 C87 135 73 110 70 60" fill="none" stroke="url(#portfolioGold)" strokeWidth="2.4" strokeLinecap="round" opacity=".85" />
+      <g filter={`url(#${embossId})`}>
+        {leftLeaves.map((leaf, index) => (
+          <path
+            key={`left-leaf-${index}`}
+            d="M0 0C8-5 16-4 21 1C14 5 7 7 0 0Z"
+            fill={`url(#${goldId})`}
+            opacity=".96"
+            transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}
+          />
+        ))}
+      </g>
 
-      <ellipse cx="151" cy="122" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-16 151 122)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="156" cy="108" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-26 156 108)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="160" cy="94" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-36 160 94)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="161" cy="80" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-48 161 80)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="159" cy="66" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-58 159 66)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="154" cy="53" rx="3.6" ry="8" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-70 154 53)" filter="url(#portfolioEmboss)" />
+      <g filter={`url(#${embossId})`}>
+        {rightLeaves.map((leaf, index) => (
+          <path
+            key={`right-leaf-${index}`}
+            d="M0 0C-8-5-16-4-21 1C-14 5-7 7 0 0Z"
+            fill={`url(#${goldId})`}
+            opacity=".96"
+            transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}
+          />
+        ))}
+      </g>
 
-      <ellipse cx="69" cy="122" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(16 69 122)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="64" cy="108" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(26 64 108)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="60" cy="94" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(36 60 94)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="59" cy="80" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(48 59 80)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="61" cy="66" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(58 61 66)" filter="url(#portfolioEmboss)" />
-      <ellipse cx="66" cy="53" rx="3.6" ry="8" fill="url(#portfolioGold)" opacity=".95" transform="rotate(70 66 53)" filter="url(#portfolioEmboss)" />
+      <path
+        d="M88 128c10 8 34 8 44 0"
+        fill="none"
+        stroke={`url(#${softGoldId})`}
+        strokeWidth="2"
+        strokeLinecap="round"
+        opacity=".82"
+      />
 
-      <g filter="url(#portfolioEmboss)">
+      <g filter={`url(#${embossId})`}>
         <path
-          d="M82 66c-13 0-21 7-21 18 0 12 9 21 23 23"
+          d="M83 66c-12.5 0-20.5 7.5-20.5 18.2 0 12.4 9.2 22 23.4 24.5"
           fill="none"
-          stroke="url(#portfolioGold)"
-          strokeWidth="7"
+          stroke={`url(#${goldId})`}
+          strokeWidth="6.4"
           strokeLinecap="round"
         />
         <path
-          d="M138 66c13 0 21 7 21 18 0 12-9 21-23 23"
+          d="M137 66c12.5 0 20.5 7.5 20.5 18.2 0 12.4-9.2 22-23.4 24.5"
           fill="none"
-          stroke="url(#portfolioGold)"
-          strokeWidth="7"
+          stroke={`url(#${goldId})`}
+          strokeWidth="6.4"
           strokeLinecap="round"
         />
         <path
-          d="M83 58h54c-1 35-10 54-27 54S84 93 83 58z"
-          fill="url(#portfolioGold)"
-          stroke="#8C5A18"
+          d="M83.8 58.5h52.4c-.8 17.4-4.1 31.2-9.8 40.2-4.3 6.8-9.7 10.2-16.4 10.2s-12.1-3.4-16.4-10.2c-5.7-9-9-22.8-9.8-40.2z"
+          fill={`url(#${goldId})`}
+          stroke="#7A4A13"
           strokeWidth="1.2"
         />
-        <path d="M102 112h16v18h-16z" fill="url(#portfolioGold)" />
-        <path d="M89 132h42v10H89z" fill="url(#portfolioGold)" rx="3" />
+        <path
+          d="M91 65.5c2.5 18.8 8.6 31.5 18.8 36.2"
+          fill="none"
+          stroke="rgba(255,255,255,.34)"
+          strokeWidth="1.1"
+          strokeLinecap="round"
+        />
+        <path d="M102.5 109h15v18h-15z" fill={`url(#${goldId})`} />
+        <path
+          d="M88.5 128.5h43c2 0 3.5 1.5 3.5 3.5v6.5h-50V132c0-2 1.5-3.5 3.5-3.5z"
+          fill={`url(#${goldId})`}
+          stroke="#7A4A13"
+          strokeWidth="1"
+        />
       </g>
     </svg>
   );
@@ -302,12 +416,13 @@ export function PortfolioCoverFace({
       }}
     >
       <div
-        className="absolute inset-0 opacity-[.10] mix-blend-overlay"
+        className="absolute inset-0 opacity-[.12] mix-blend-overlay"
         style={{
           backgroundImage: `
-            repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 1px, transparent 1px 4px),
-            repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 1px, transparent 1px 5px)
+            radial-gradient(circle at 1px 1px, rgba(255,255,255,.65) 1px, transparent 0),
+            radial-gradient(circle at 3px 5px, rgba(0,0,0,.40) .8px, transparent 0)
           `,
+          backgroundSize: "14px 14px, 19px 19px",
         }}
       />
 
