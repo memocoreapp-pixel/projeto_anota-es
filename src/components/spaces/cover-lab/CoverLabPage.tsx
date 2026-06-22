@@ -54,14 +54,14 @@ export function CoverLabPage() {
         </div>
       </section>
 
-      {/* PortfolioCoverFace — experimento descartado (CSS/SVG) */}
+      {/* PortfolioCoverFace — Premium CSS (pronto) */}
       <section>
         <h2 className="mb-1 text-lg font-semibold text-slate-900">
-          PortfolioCoverFace — experimento descartado (CSS/SVG)
+          Portfólios — Premium (CSS, pronto · 8 cores oficiais)
         </h2>
         <p className="mb-4 text-sm text-slate-500">
-          Mantido apenas como referência histórica. Não é a versão oficial; a
-          direção atual usa assets de imagem (seção acima).
+          Capa premium feita 100% em código (couro via feTurbulence + moldura,
+          placa, fita e selo dourados). Pronta para uso, sem depender de imagens.
         </p>
         <div className="mb-8 flex justify-center sm:justify-start">
           <PortfolioCoverFace theme="purple" />

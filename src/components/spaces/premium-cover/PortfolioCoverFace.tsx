@@ -4,12 +4,11 @@ type PortfolioThemeId =
   | "purple"
   | "blue"
   | "green"
-  | "guava"
+  | "wine"
   | "black"
   | "brown"
   | "beige"
-  | "gray"
-  | "white";
+  | "gray";
 
 type PortfolioCoverFaceProps = {
   title?: string;
@@ -40,147 +39,131 @@ const portfolioThemes: Record<
 > = {
   purple: {
     name: "Púrpura Real",
-    base: "#2A123F",
-    base2: "#6D2AD7",
-    spine: "#1A0B2B",
-    spine2: "#5A21A8",
-    frame: "#D9A94D",
-    frameSoft: "rgba(217,169,77,.42)",
-    text: "#F4D38A",
-    mutedText: "#F7E8C2",
-    ribbon: "#9F55B8",
-    ribbon2: "#5C237C",
-    plate: "#24102F",
+    base: "#2E1248",
+    base2: "#6A2BCB",
+    spine: "#1B0A30",
+    spine2: "#4E1F95",
+    frame: "#E0B85C",
+    frameSoft: "rgba(224,184,92,.42)",
+    text: "#F6D88E",
+    mutedText: "#F8EAC6",
+    ribbon: "#8A45B0",
+    ribbon2: "#4E1F86",
+    plate: "#251036",
     plateBorder: "#C99946",
-    shadow: "rgba(33, 13, 52, .45)",
+    shadow: "rgba(28, 10, 48, .45)",
   },
   blue: {
     name: "Azul Sábio",
-    base: "#10283E",
-    base2: "#1F4A68",
-    spine: "#061522",
-    spine2: "#12334A",
-    frame: "#D9A94D",
-    frameSoft: "rgba(217,169,77,.40)",
-    text: "#F4D38A",
-    mutedText: "#F7E8C2",
-    ribbon: "#365A78",
-    ribbon2: "#102C46",
-    plate: "#091723",
+    base: "#102A44",
+    base2: "#234E72",
+    spine: "#0A1B2D",
+    spine2: "#143653",
+    frame: "#E0B85C",
+    frameSoft: "rgba(224,184,92,.40)",
+    text: "#F6D88E",
+    mutedText: "#F8EAC6",
+    ribbon: "#2E5170",
+    ribbon2: "#0F2942",
+    plate: "#0B1B2A",
     plateBorder: "#C99946",
-    shadow: "rgba(6, 21, 34, .45)",
+    shadow: "rgba(8, 20, 34, .45)",
   },
   green: {
     name: "Verde Floresta",
-    base: "#163522",
-    base2: "#246640",
+    base: "#14361F",
+    base2: "#235C36",
     spine: "#0C2114",
-    spine2: "#1A4C2D",
-    frame: "#D9A94D",
-    frameSoft: "rgba(217,169,77,.38)",
-    text: "#F4D38A",
-    mutedText: "#F7E8C2",
-    ribbon: "#2C7048",
-    ribbon2: "#12351F",
-    plate: "#0E2416",
+    spine2: "#1A4427",
+    frame: "#E0B85C",
+    frameSoft: "rgba(224,184,92,.38)",
+    text: "#F6D88E",
+    mutedText: "#F8EAC6",
+    ribbon: "#2A6A44",
+    ribbon2: "#123420",
+    plate: "#0F2616",
     plateBorder: "#C99946",
-    shadow: "rgba(12, 33, 20, .45)",
+    shadow: "rgba(10, 30, 18, .45)",
   },
-  guava: {
-    name: "Goiaba",
-    base: "#662638",
-    base2: "#A84262",
-    spine: "#3A1420",
-    spine2: "#842F4C",
-    frame: "#D9A94D",
-    frameSoft: "rgba(217,169,77,.40)",
-    text: "#F4D38A",
-    mutedText: "#F7E8C2",
-    ribbon: "#C26A7F",
-    ribbon2: "#8E314D",
-    plate: "#3D1724",
+  wine: {
+    name: "Vinho Clássico",
+    base: "#491522",
+    base2: "#7C2433",
+    spine: "#2F0D15",
+    spine2: "#5E1B28",
+    frame: "#E0B85C",
+    frameSoft: "rgba(224,184,92,.40)",
+    text: "#F6D88E",
+    mutedText: "#F8EAC6",
+    ribbon: "#8E3140",
+    ribbon2: "#4A141F",
+    plate: "#350F17",
     plateBorder: "#C99946",
-    shadow: "rgba(58, 20, 32, .45)",
+    shadow: "rgba(40, 12, 20, .46)",
   },
   black: {
     name: "Preto Carvão",
-    base: "#111111",
-    base2: "#2A2A28",
-    spine: "#050505",
-    spine2: "#1A1A18",
-    frame: "#D9A94D",
-    frameSoft: "rgba(217,169,77,.38)",
-    text: "#F4D38A",
-    mutedText: "#F7E8C2",
-    ribbon: "#2B2B2A",
-    ribbon2: "#101010",
-    plate: "#090909",
+    base: "#16161B",
+    base2: "#2E2E34",
+    spine: "#0A0A0D",
+    spine2: "#1C1C20",
+    frame: "#E0B85C",
+    frameSoft: "rgba(224,184,92,.38)",
+    text: "#F6D88E",
+    mutedText: "#F8EAC6",
+    ribbon: "#2C2C30",
+    ribbon2: "#111114",
+    plate: "#0C0C10",
     plateBorder: "#C99946",
     shadow: "rgba(0,0,0,.50)",
   },
   brown: {
     name: "Marrom Café",
-    base: "#3A2519",
-    base2: "#6B4328",
-    spine: "#24150E",
-    spine2: "#4B2B1A",
-    frame: "#D9A94D",
-    frameSoft: "rgba(217,169,77,.38)",
-    text: "#F4D38A",
-    mutedText: "#F7E8C2",
+    base: "#3A2418",
+    base2: "#654129",
+    spine: "#241509",
+    spine2: "#46291A",
+    frame: "#E0B85C",
+    frameSoft: "rgba(224,184,92,.38)",
+    text: "#F6D88E",
+    mutedText: "#F8EAC6",
     ribbon: "#6E432C",
     ribbon2: "#341D12",
-    plate: "#22130D",
+    plate: "#20130C",
     plateBorder: "#C99946",
     shadow: "rgba(36, 21, 14, .48)",
   },
   beige: {
     name: "Bege Areia",
-    base: "#E9DDC3",
-    base2: "#F7EEDB",
-    spine: "#D2BE96",
-    spine2: "#F1E2C0",
-    frame: "#B88938",
-    frameSoft: "rgba(184,137,56,.34)",
-    text: "#7B5523",
-    mutedText: "#5B3D18",
-    ribbon: "#E6C887",
-    ribbon2: "#C89A45",
-    plate: "#F5E9D0",
-    plateBorder: "#B88938",
-    shadow: "rgba(87, 61, 27, .22)",
+    base: "#E7DCC4",
+    base2: "#F6EEDB",
+    spine: "#CDBA94",
+    spine2: "#EFE0BE",
+    frame: "#A9802F",
+    frameSoft: "rgba(169,128,47,.40)",
+    text: "#6B4E22",
+    mutedText: "#5A4018",
+    ribbon: "#DCC288",
+    ribbon2: "#B98F3F",
+    plate: "#F3E8CF",
+    plateBorder: "#A9802F",
+    shadow: "rgba(80, 58, 26, .22)",
   },
   gray: {
     name: "Cinza Neblina",
-    base: "#8C8980",
-    base2: "#B9B4A8",
-    spine: "#6C6962",
-    spine2: "#A29C90",
-    frame: "#C8AD6D",
-    frameSoft: "rgba(200,173,109,.34)",
-    text: "#59452A",
-    mutedText: "#463929",
-    ribbon: "#B9B4AA",
-    ribbon2: "#7B776F",
-    plate: "#A7A198",
+    base: "#8B8880",
+    base2: "#BAB5AA",
+    spine: "#6B685F",
+    spine2: "#A19B8F",
+    frame: "#9C7A3C",
+    frameSoft: "rgba(156,122,60,.40)",
+    text: "#4A3D29",
+    mutedText: "#3C3122",
+    ribbon: "#B7B2A8",
+    ribbon2: "#7A766E",
+    plate: "#A6A097",
     plateBorder: "#9C7A3C",
     shadow: "rgba(54, 51, 47, .28)",
-  },
-  white: {
-    name: "Branco",
-    base: "#F6F1E6",
-    base2: "#FFFDF8",
-    spine: "#E5D8C0",
-    spine2: "#FFF7E7",
-    frame: "#CBA45A",
-    frameSoft: "rgba(203,164,90,.32)",
-    text: "#8A6428",
-    mutedText: "#5A4320",
-    ribbon: "#F0D89F",
-    ribbon2: "#D4A64F",
-    plate: "#FFF7E7",
-    plateBorder: "#B98D3E",
-    shadow: "rgba(87, 61, 27, .18)",
   },
 };
 
@@ -396,6 +379,8 @@ export function PortfolioCoverFace({
   className = "",
 }: PortfolioCoverFaceProps) {
   const t = portfolioThemes[theme];
+  const rawId = useId().replace(/:/g, "");
+  const grainId = `leather-${rawId}`;
 
   return (
     <div
@@ -415,16 +400,16 @@ export function PortfolioCoverFace({
         `,
       }}
     >
-      <div
-        className="absolute inset-0 opacity-[.12] mix-blend-overlay"
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 1px 1px, rgba(255,255,255,.65) 1px, transparent 0),
-            radial-gradient(circle at 3px 5px, rgba(0,0,0,.40) .8px, transparent 0)
-          `,
-          backgroundSize: "14px 14px, 19px 19px",
-        }}
-      />
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[.22] mix-blend-soft-light"
+        aria-hidden="true"
+      >
+        <filter id={grainId}>
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter={`url(#${grainId})`} />
+      </svg>
 
       <div
         className="absolute left-0 top-0 h-full w-[34px]"
@@ -546,12 +531,11 @@ export function PortfolioCoverColorGrid() {
     "purple",
     "blue",
     "green",
-    "guava",
+    "wine",
     "black",
     "brown",
     "beige",
     "gray",
-    "white",
   ];
 
   return (
