@@ -1,4 +1,5 @@
-import { Plus, Sparkles, CloudUpload, Menu } from "lucide-react";
+import { Plus, Sparkles, CloudUpload, Menu, Palette } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { SearchInput } from "@/components/ui/SearchInput";
 
@@ -44,6 +45,14 @@ export function Header({ onOpenSidebar }: HeaderProps) {
             <Button variant="secondary" icon={CloudUpload}>
               Backup
             </Button>
+            <Link
+              to="/cover-lab"
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-dashed border-brand-300 px-3 text-sm font-medium text-brand-600 hover:bg-brand-50"
+              title="Pré-visualização das capas (temporário)"
+            >
+              <Palette className="h-4 w-4" aria-hidden="true" />
+              CoverLab
+            </Link>
           </div>
         </div>
       </div>
