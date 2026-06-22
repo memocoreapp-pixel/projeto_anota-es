@@ -5,6 +5,10 @@ import { LabCoverC } from "./LabCoverC";
 import { LabCoverD } from "./LabCoverD";
 import { CoverPreviewGrid } from "./CoverPreviewGrid";
 import { CoverThemePreview } from "./CoverThemePreview";
+import {
+  PortfolioCoverFace,
+  PortfolioCoverColorGrid,
+} from "@/components/spaces/premium-cover/PortfolioCoverFace";
 
 /**
  * Laboratório visual isolado das capas. Não é a tela final e não afeta a Home.
@@ -28,6 +32,20 @@ export function CoverLabPage() {
           Família visual das capas, isolada da Home — comparando versões.
         </p>
       </header>
+
+      {/* PortfolioCoverFace — versão oficial em código */}
+      <section>
+        <h2 className="mb-1 text-lg font-semibold text-slate-900">
+          PortfolioCoverFace — versão oficial em código
+        </h2>
+        <p className="mb-4 text-sm text-slate-500">
+          Componente entregue em código; capa principal (roxo) e variações de cor.
+        </p>
+        <div className="mb-8 flex justify-center sm:justify-start">
+          <PortfolioCoverFace theme="purple" />
+        </div>
+        <PortfolioCoverColorGrid />
+      </section>
 
       {/* Comparação Atual × C × D (Manual) */}
       <section>
