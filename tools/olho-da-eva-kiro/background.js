@@ -414,6 +414,8 @@ function montarRelatorio(p, opcoes) {
 const OCR_PROMPT_NUVEM = 'Transcreva FIELMENTE, em texto puro, TODO o texto visivel nesta imagem, na ordem em que aparece (de cima para baixo, da esquerda para a direita). Responda APENAS com o texto transcrito, sem comentarios, sem aspas e sem explicacao. Se nao houver texto legivel, responda exatamente: (sem texto na imagem).';
 
 async function ocrNaNuvem(dataUrl, provedor) {
+  // MODO LOCAL: lente na nuvem desativada (nao contata nenhum servidor).
+  return { ok: false, erro: 'modo local: OCR na nuvem desativado', local: true };
   try {
     const url = await urlConect('urlNuvem', BRIDGE_OLHO_NUVEM);
     const r = await fetch(url, {
@@ -430,6 +432,8 @@ async function ocrNaNuvem(dataUrl, provedor) {
 }
 
 async function olharNaNuvem(dataUrl, provedor) {
+  // MODO LOCAL: lente na nuvem desativada (nao contata nenhum servidor).
+  return { ok: false, erro: 'modo local: descricao de imagem na nuvem desativada', local: true };
   try {
     const url = await urlConect('urlNuvem', BRIDGE_OLHO_NUVEM);
     const r = await fetch(url, {

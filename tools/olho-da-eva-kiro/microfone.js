@@ -131,6 +131,11 @@ $('btnGravar').addEventListener('click', async function () {
     $('btnGravar').classList.remove('gravando'); $('btnGravar').textContent = '⏺ Gravar';
     try { premStream.getTracks().forEach(function (t) { t.stop(); }); } catch (_) {}
     var blob = new Blob(chunks, { type: (mediaRec && mediaRec.mimeType) || 'audio/webm' });
+    status(st, 'MODO LOCAL: a transcricao premium (nuvem) esta desativada nesta copia. Use o Passo 2 (ditar) — e local, no proprio navegador.', 'erro');
+    try { premStream.getTracks().forEach(function (t) { t.stop(); }); } catch (_) {}
+    $('btnGravar').disabled = false; $('btnPararGravar').disabled = true;
+    return;
+    // (transcricao premium na nuvem desativada no modo local)
     status(st, 'Transcrevendo na nuvem (Whisper) e refinando com IA... aguarde alguns segundos.', 'on');
     try {
       var b64 = await blobParaBase64(blob);
@@ -177,6 +182,10 @@ async function urlEnviarFn() {
 async function enviarPraEva(texto, statusEl, origem) {
   texto = (texto || '').trim();
   if (!texto) { status(statusEl, 'Nada pra enviar — grave/dite algo primeiro.', 'erro'); return; }
+  // MODO LOCAL: nao envia pra nuvem/EVA. Guarda na caixa de Recado local.
+  try { await chrome.storage.local.set({ recadoEva: texto }); } catch (_) {}
+  status(statusEl, '✓ Modo local: guardei na caixa de Recado. Abra o painel e use "Copiar".', 'ok');
+  return;
   // anti-duplicado: mesmo conteudo em < 90s nao manda de novo
   var hh = hashMsg(texto);
   try {

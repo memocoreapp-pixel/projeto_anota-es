@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Olho da EVA — Kiro (isolado)",
   "version": "1.8.1",
-  "description": "[MODO ISOLADO - Terminal Kiro] Da olhos ao Kiro deste terminal SEM cruzar dados com a EVA do outro terminal: captura uma area e transforma em TEXTO (DOM + OCR/descricao na nuvem). A ponte compartilhada da EVA fica DESATIVADA; a entrega aqui e por Copiar e colar.",
+  "description": "[MODO LOCAL - Terminal Kiro] Da olhos ao Kiro 100% LOCAL, sem encostar em servidor nenhum (nada vai pra EVA do outro terminal): captura uma area e transforma em TEXTO (DOM/acessibilidade) + ditado nativo do navegador. Lentes na nuvem e ponte compartilhada DESATIVADAS. Entrega por Copiar e colar.",
   "permissions": ["activeTab", "scripting", "tabs", "storage", "clipboardWrite", "offscreen"],
   "host_permissions": ["<all_urls>"],
   "background": { "service_worker": "background.js", "type": "module" },
