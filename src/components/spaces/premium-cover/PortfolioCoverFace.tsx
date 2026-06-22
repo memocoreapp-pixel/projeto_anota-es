@@ -209,24 +209,9 @@ function TrophyLaurel({ frame }: { frame: string }) {
         </filter>
       </defs>
 
-      <circle
-        cx="110"
-        cy="84"
-        r="58"
-        fill="none"
-        stroke={frame}
-        strokeWidth="2"
-        opacity=".55"
-      />
-      <circle
-        cx="110"
-        cy="84"
-        r="46"
-        fill="rgba(0,0,0,.10)"
-        stroke={frame}
-        strokeWidth="1"
-        opacity=".35"
-      />
+      <circle cx="110" cy="84" r="60" fill="none" stroke={frame} strokeWidth="1.5" opacity=".5" />
+      <circle cx="110" cy="84" r="52" fill="rgba(0,0,0,.12)" stroke={frame} strokeWidth="2" opacity=".6" />
+      <circle cx="110" cy="84" r="45" fill="none" stroke={frame} strokeWidth="1" opacity=".35" />
 
       <path
         d="M110 12l4.5 9.2 10.1 1.5-7.3 7.1 1.7 10-9-4.8-9 4.8 1.7-10-7.3-7.1 10.1-1.5L110 12z"
@@ -244,45 +229,22 @@ function TrophyLaurel({ frame }: { frame: string }) {
         opacity=".9"
       />
 
-      {Array.from({ length: 11 }).map((_, i) => {
-        const angle = -120 + i * 13;
-        const rad = (angle * Math.PI) / 180;
-        const x = 62 + Math.cos(rad) * 38;
-        const y = 88 + Math.sin(rad) * 58;
-        return (
-          <ellipse
-            key={`left-${i}`}
-            cx={x}
-            cy={y}
-            rx="4.4"
-            ry="11"
-            fill="url(#portfolioGold)"
-            opacity=".95"
-            transform={`rotate(${angle + 45} ${x} ${y})`}
-            filter="url(#portfolioEmboss)"
-          />
-        );
-      })}
+      <path d="M110 142 C133 135 147 110 150 60" fill="none" stroke="url(#portfolioGold)" strokeWidth="2.4" strokeLinecap="round" opacity=".85" />
+      <path d="M110 142 C87 135 73 110 70 60" fill="none" stroke="url(#portfolioGold)" strokeWidth="2.4" strokeLinecap="round" opacity=".85" />
 
-      {Array.from({ length: 11 }).map((_, i) => {
-        const angle = -60 + i * 13;
-        const rad = (angle * Math.PI) / 180;
-        const x = 158 + Math.cos(rad) * 38;
-        const y = 88 + Math.sin(rad) * 58;
-        return (
-          <ellipse
-            key={`right-${i}`}
-            cx={x}
-            cy={y}
-            rx="4.4"
-            ry="11"
-            fill="url(#portfolioGold)"
-            opacity=".95"
-            transform={`rotate(${angle - 45} ${x} ${y})`}
-            filter="url(#portfolioEmboss)"
-          />
-        );
-      })}
+      <ellipse cx="151" cy="122" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-16 151 122)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="156" cy="108" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-26 156 108)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="160" cy="94" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-36 160 94)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="161" cy="80" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-48 161 80)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="159" cy="66" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-58 159 66)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="154" cy="53" rx="3.6" ry="8" fill="url(#portfolioGold)" opacity=".95" transform="rotate(-70 154 53)" filter="url(#portfolioEmboss)" />
+
+      <ellipse cx="69" cy="122" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(16 69 122)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="64" cy="108" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(26 64 108)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="60" cy="94" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(36 60 94)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="59" cy="80" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(48 59 80)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="61" cy="66" rx="4" ry="9" fill="url(#portfolioGold)" opacity=".95" transform="rotate(58 61 66)" filter="url(#portfolioEmboss)" />
+      <ellipse cx="66" cy="53" rx="3.6" ry="8" fill="url(#portfolioGold)" opacity=".95" transform="rotate(70 66 53)" filter="url(#portfolioEmboss)" />
 
       <g filter="url(#portfolioEmboss)">
         <path
@@ -340,13 +302,12 @@ export function PortfolioCoverFace({
       }}
     >
       <div
-        className="absolute inset-0 opacity-[.30] mix-blend-overlay"
+        className="absolute inset-0 opacity-[.10] mix-blend-overlay"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 1px 1px, rgba(255,255,255,.65) 1px, transparent 0),
-            radial-gradient(circle at 3px 5px, rgba(0,0,0,.40) .8px, transparent 0)
+            repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 1px, transparent 1px 4px),
+            repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 1px, transparent 1px 5px)
           `,
-          backgroundSize: "8px 8px, 11px 11px",
         }}
       />
 
@@ -409,13 +370,12 @@ export function PortfolioCoverFace({
       </div>
 
       <div
-        className="absolute left-1/2 top-[38px] z-10 -translate-x-1/2 rounded-[4px] px-3 py-1 text-[5.8px] font-semibold uppercase tracking-[.18em]"
+        className="absolute left-1/2 top-[38px] z-10 -translate-x-1/2 rounded-[4px] px-3 py-1 text-[5.8px] font-semibold uppercase tracking-[.18em] opacity-80"
         style={{
-          background: `linear-gradient(180deg, ${t.plate}, rgba(0,0,0,.20))`,
-          border: `1px solid ${t.plateBorder}`,
-          color: t.text,
-          boxShadow:
-            "0 3px 8px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18)",
+          background: `linear-gradient(180deg, ${t.plate}, rgba(0,0,0,.12))`,
+          border: `1px solid ${t.frameSoft}`,
+          color: t.mutedText,
+          boxShadow: "0 2px 5px rgba(0,0,0,.18)",
         }}
       >
         Plano · Execução · Excelência
